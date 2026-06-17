@@ -1,14 +1,14 @@
-import { MessageSquare, Send, Sparkles, TrendingUp, MoreHorizontal } from "lucide-react";
+import { Bot, Send, Sparkles, TrendingUp } from "lucide-react";
 import "./AiAssistant.css";
 
 
 export default function AiAssistant() {
   return (
-    <section id="ai-assistant" className="section-padding" style={{ background: 'rgba(255, 255, 255, 0.01)' }}>
+    <section id="ai-assistant" className="section-padding" style={{ background: '#070913' }}>
       <div className="lp-container">
         <div className="section-header">
           <div className="badge">
-            <span className="badge-dot"></span>
+            <Sparkles size={12} />
             <span>AI Business Assistant</span>
           </div>
           <h2>Ask Your Business Anything</h2>
@@ -20,7 +20,7 @@ export default function AiAssistant() {
           <div className="mock-chat-header">
             <div className="chat-header-user">
               <div className="chat-bot-avatar">
-                <MessageSquare size={16} />
+                <Bot size={18} />
               </div>
               <div>
                 <div className="chat-header-name">Operix AI</div>
@@ -30,8 +30,10 @@ export default function AiAssistant() {
                 </div>
               </div>
             </div>
-            <div style={{ color: 'var(--lp-text-muted)', cursor: 'pointer' }}>
-              <MoreHorizontal size={18} />
+            <div className="window-dots">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
           </div>
 
@@ -59,7 +61,7 @@ export default function AiAssistant() {
             {/* Message: AI */}
             <div className="chat-msg-row">
               <div className="ai-icon-bubble">
-                <TrendingUp size={16} />
+                <TrendingUp size={18} />
               </div>
               <div className="chat-bubble ai">
                 Last month's net profit was $82,500 — up 28.4% from the previous month.
@@ -71,12 +73,12 @@ export default function AiAssistant() {
 
           {/* Chat Input */}
           <div className="mock-chat-input-row">
-            <div className="chat-input-box">
-              <span style={{ color: 'var(--lp-text-muted)' }}>Ask your business anything...</span>
+            <div className="chat-input-container">
+              <span className="chat-input-placeholder">Ask your business anything...</span>
+              <button className="chat-send-btn" aria-label="Send message" type="button">
+                <Send size={15} />
+              </button>
             </div>
-            <button className="chat-send-btn" aria-label="Send message" type="button">
-              <Send size={16} />
-            </button>
           </div>
         </div>
       </div>
