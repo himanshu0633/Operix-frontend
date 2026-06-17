@@ -1,0 +1,95 @@
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.module-card {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card:hover {
+  border-color: var(--lp-card-hover-border);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.4), 
+              0 0 20px var(--lp-accent-glow);
+}
+
+.module-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Assigning unique soft color gradients to module icons */
+.module-card:nth-child(1) .module-icon-box { background: rgba(99, 102, 241, 0.1); color: #818cf8; border-color: rgba(99, 102, 241, 0.2); }
+.module-card:nth-child(2) .module-icon-box { background: rgba(16, 185, 129, 0.1); color: #34d399; border-color: rgba(16, 185, 129, 0.2); }
+.module-card:nth-child(3) .module-icon-box { background: rgba(56, 189, 248, 0.1); color: #38bdf8; border-color: rgba(56, 189, 248, 0.2); }
+.module-card:nth-child(4) .module-icon-box { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border-color: rgba(245, 158, 11, 0.2); }
+.module-card:nth-child(5) .module-icon-box { background: rgba(236, 72, 153, 0.1); color: #f472b6; border-color: rgba(236, 72, 153, 0.2); }
+.module-card:nth-child(6) .module-icon-box { background: rgba(168, 85, 247, 0.1); color: #c084fc; border-color: rgba(168, 85, 247, 0.2); }
+.module-card:nth-child(7) .module-icon-box { background: rgba(239, 68, 68, 0.1); color: #f87171; border-color: rgba(239, 68, 68, 0.2); }
+.module-card:nth-child(8) .module-icon-box { background: rgba(20, 184, 166, 0.1); color: #2dd4bf; border-color: rgba(20, 184, 166, 0.2); }
+
+.module-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  z-index: 2;
+}
+
+.module-desc {
+  font-size: 14px;
+  color: var(--lp-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  z-index: 2;
+  flex: 1;
+}
+
+.module-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--lp-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.module-link svg {
+  transition: transform 0.2s;
+}
+
+.module-card:hover .module-link svg {
+  transform: translateX(4px);
+}
+
+.module-card:hover .module-link {
+  color: #818cf8;
+}
+
+@media (max-width: 1024px) {
+  .modules-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+}

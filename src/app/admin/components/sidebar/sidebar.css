@@ -1,0 +1,218 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--sidebar);
+  color: var(--ink);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.brandBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 70px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.brandMark,
+.statIcon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #7783ff;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 22px rgba(119, 131, 255, 0.35);
+}
+
+.brandBlock strong,
+.brandBlock span {
+  display: block;
+}
+
+.brandBlock strong {
+  font-size: 15px;
+  line-height: 1.1;
+}
+
+.brandBlock span {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.sideNav {
+  display: grid;
+  gap: 22px;
+  padding: 17px 20px 18px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--panel-hover) transparent;
+}
+
+.navGroup {
+  display: grid;
+  gap: 4px;
+}
+
+.navGroup p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.navGroup a,
+.supportLink {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 34px;
+  color: var(--secondary-text);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.navGroup a svg,
+.supportLink svg {
+  color: var(--secondary-text);
+}
+
+.navGroup a.active,
+.navGroup a:hover,
+.supportLink:hover {
+  color: var(--ink);
+}
+
+.navGroup a.active svg,
+.navGroup a:hover svg,
+.supportLink:hover svg {
+  color: var(--accent);
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding: 0 12px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.supportLink {
+  min-height: 50px;
+  padding: 0 10px;
+}
+
+.upgradeBox {
+  padding: 14px 12px 12px;
+  border: 1px solid rgba(119, 131, 255, 0.34);
+  border-radius: 12px;
+  background: #1b2338;
+}
+
+.upgradeBox div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #7f8cff;
+}
+
+.upgradeBox strong {
+  font-size: 14px;
+}
+
+.upgradeBox p {
+  margin: 8px 0 14px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.upgradeBox button {
+  width: 100%;
+  min-height: 33px;
+  border: 0;
+  border-radius: 7px;
+  background: #7c86ff;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.userBlock {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 16px;
+  gap: 10px;
+  align-items: center;
+  padding: 18px 10px 0;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #242c45;
+  color: #8792ff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+}
+
+.userBlock strong,
+.userBlock span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userBlock strong {
+  font-size: 13px;
+}
+
+.userBlock span {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.userBlock > svg {
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .sidebar {
+    position: relative;
+    height: auto;
+    max-height: none;
+  }
+
+  .brandBlock {
+    min-height: 64px;
+  }
+
+  .sideNav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    max-height: 360px;
+    padding: 16px 18px;
+  }
+
+  .sidebarFooter {
+    padding: 0 12px 14px;
+  }
+}
+
+@media (max-width: 460px) {
+  .sideNav {
+    grid-template-columns: 1fr;
+  }
+}

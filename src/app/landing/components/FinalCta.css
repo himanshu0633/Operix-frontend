@@ -1,0 +1,39 @@
+/* Final Call to Action Banner */
+.final-cta-section {
+  text-align: center;
+  padding: 100px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.06) 0%, transparent 60%);
+  position: relative;
+}
+
+.final-cta-section h2 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(to right, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.final-cta-section p {
+  font-size: 18px;
+  color: var(--lp-text-secondary);
+  max-width: 550px;
+  margin: 0 auto 36px auto;
+  line-height: 1.6;
+}
+
+.final-cta-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.final-cta-subtext {
+  font-size: 13px;
+  color: var(--lp-text-muted);
+}
