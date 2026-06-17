@@ -192,8 +192,8 @@ export default function Hero() {
                 <div className="dash-sidebar-profile">
                   <div className="dash-sidebar-avatar">G</div>
                   <div>
-                    <div className="dash-profile-name">Gautam Shah</div>
-                    <div className="dash-profile-email">gautam@enterprises.in</div>
+                    <div className="dash-profile-name">Himanshu Shah</div>
+                    <div className="dash-profile-email">Himanshu@enterprises.in</div>
                   </div>
                 </div>
               </aside>
@@ -230,7 +230,7 @@ export default function Hero() {
                   {/* Welcome Row */}
                   <div className="dash-welcome-row">
                     <div className="dash-welcome">
-                      <h3>Good Evening, Gautam</h3>
+                      <h3>Good Evening, Himanshu</h3>
                       <p>You have 6 pending orders and 3 low-stock alerts today.</p>
                     </div>
                     <div className="dash-welcome-buttons">
