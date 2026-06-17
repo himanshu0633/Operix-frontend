@@ -37,7 +37,7 @@ import {
 export default function ProductShowcase() {
   return (
     <section className="section-padding" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
-      <div className="lp-container" style={{ display: 'flex', flexDirection: 'column', gap: '140px' }}>
+      <div className="lp-container" style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
         
         {/* ====================================================
             SECTION 1: PRODUCT MANAGEMENT

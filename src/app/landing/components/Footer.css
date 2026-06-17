@@ -2,14 +2,14 @@
 .lp-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   background: #07080a;
-  padding: 80px 0 40px 0;
+  padding: 40px 0 30px 0;
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr repeat(5, 1fr);
   gap: 48px;
-  margin-bottom: 60px;
+  margin-bottom: 32px;
 }
 
 .footer-brand {
