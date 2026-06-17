@@ -116,7 +116,7 @@ export function Sidebar({ activePage }: SidebarProps) {
         <div className="userBlock">
           <div className="avatar">G</div>
           <div>
-            <strong>Himanshu Shah</strong>
+            <strong>Himanshu </strong>
             <span>Himanshu@bizos.in</span>
           </div>
           <ChevronDown size={15} />

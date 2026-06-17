@@ -192,7 +192,7 @@ export default function Hero() {
                 <div className="dash-sidebar-profile">
                   <div className="dash-sidebar-avatar">G</div>
                   <div>
-                    <div className="dash-profile-name">Himanshu Shah</div>
+                    <div className="dash-profile-name">Himanshu </div>
                     <div className="dash-profile-email">Himanshu@enterprises.in</div>
                   </div>
                 </div>
