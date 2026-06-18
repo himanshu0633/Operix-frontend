@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./Modules.css";
+import ScrollReveal from "./ScrollReveal";
 
 import {
   Box,
@@ -75,18 +76,26 @@ export default function Modules() {
   return (
     <section id="product" className="section-padding">
       <div className="lp-container">
-        <div className="section-header">
-          <div className="badge">
-            <span className="badge-dot"></span>
-            <span>Platform Modules</span>
+        <ScrollReveal animation="slide-up" duration={800}>
+          <div className="section-header">
+            <div className="badge">
+              <span className="badge-dot"></span>
+              <span>Platform Modules</span>
+            </div>
+            <h2>Built For Modern Businesses</h2>
+            <p>Every tool you need to operate and grow.</p>
           </div>
-          <h2>Built For Modern Businesses</h2>
-          <p>Every tool you need to operate and grow.</p>
-        </div>
+        </ScrollReveal>
 
         <div className="modules-grid">
-          {modules.map((module) => (
-            <div key={module.id} className="module-card glass-panel">
+          {modules.map((module, idx) => (
+            <ScrollReveal
+              key={module.id}
+              className="module-card glass-panel"
+              animation="slide-up"
+              delay={idx * 60}
+              duration={600}
+            >
               <div className="module-icon-box">
                 <module.icon size={20} />
               </div>
@@ -96,7 +105,7 @@ export default function Modules() {
                 <span>Learn more</span>
                 <ArrowRight size={14} />
               </Link>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

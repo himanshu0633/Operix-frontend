@@ -1,5 +1,6 @@
 import React from "react";
 import "./Integrations.css";
+import ScrollReveal from "./ScrollReveal";
 
 import {
   Truck,
@@ -75,18 +76,26 @@ export default function Integrations() {
   return (
     <section id="solutions" className="section-padding" style={{ background: 'rgba(255, 255, 255, 0.01)' }}>
       <div className="lp-container">
-        <div className="section-header">
-          <div className="badge">
-            <span className="badge-dot"></span>
-            <span>Connected By Design</span>
+        <ScrollReveal animation="slide-up" duration={800}>
+          <div className="section-header">
+            <div className="badge">
+              <span className="badge-dot"></span>
+              <span>Connected By Design</span>
+            </div>
+            <h2>Everything Works Together</h2>
+            <p>Your business data flows seamlessly across every module.</p>
           </div>
-          <h2>Everything Works Together</h2>
-          <p>Your business data flows seamlessly across every module.</p>
-        </div>
+        </ScrollReveal>
 
         <div className="flow-container">
           {steps.map((step, idx) => (
-            <div className="flow-step-card" key={step.id}>
+            <ScrollReveal
+              key={step.id}
+              className="flow-step-card"
+              animation="slide-up"
+              delay={idx * 80}
+              duration={600}
+            >
               <div className="flow-icon-wrapper">
                 <step.icon size={22} />
               </div>
@@ -98,7 +107,7 @@ export default function Integrations() {
                   <ArrowRight size={14} />
                 </div>
               )}
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

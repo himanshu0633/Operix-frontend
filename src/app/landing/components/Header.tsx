@@ -1,19 +1,22 @@
 import Link from "next/link";
 import "./Header.css";
+import { BRAND_NAME } from "../../config/branding";
 
 
 export default function Header() {
   return (
     <header className="lp-header">
       <div className="lp-container header-inner">
-        <Link href="/" className="logo">
-          <div className="logo-icon">
-            <span className="logo-dot"></span>
-            <span className="logo-dot"></span>
-            <span className="logo-dot"></span>
-            <span className="logo-dot"></span>
-          </div>
-          <span>Operix</span>
+        <Link href="/" className="logo" style={{ display: "flex", alignItems: "center" }}>
+          <img 
+            src="/logo-full.png" 
+            alt={`${BRAND_NAME} Logo`} 
+            style={{ 
+              height: "44px", 
+              width: "auto",
+              objectFit: "contain"
+            }} 
+          />
         </Link>
 
         <nav className="lp-nav">

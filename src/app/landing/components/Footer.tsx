@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./Footer.css";
+import { BRAND_NAME, BRAND_EMAIL, BRAND_COPYRIGHT } from "../../config/branding";
 
 import { Twitter, Linkedin, Github, Youtube, Mail } from "lucide-react";
 
@@ -10,14 +11,16 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Brand Info */}
           <div className="footer-brand">
-            <Link href="/" className="logo">
-              <div className="logo-icon">
-                <span className="logo-dot"></span>
-                <span className="logo-dot"></span>
-                <span className="logo-dot"></span>
-                <span className="logo-dot"></span>
-              </div>
-              <span>Operix</span>
+            <Link href="/" className="logo" style={{ display: "flex", alignItems: "center" }}>
+              <img 
+                src="/logo-full.png" 
+                alt={`${BRAND_NAME} Logo`} 
+                style={{ 
+                  height: "40px", 
+                  width: "auto",
+                  objectFit: "contain"
+                }} 
+              />
             </Link>
             <p className="footer-desc">
               The complete business operating system for modern companies.
@@ -35,7 +38,7 @@ export default function Footer() {
               <Link href="https://youtube.com" target="_blank" className="social-icon" aria-label="YouTube">
                 <Youtube size={16} />
               </Link>
-              <Link href="mailto:support@operix.com" className="social-icon" aria-label="Email">
+              <Link href={`mailto:${BRAND_EMAIL}`} className="social-icon" aria-label="Email">
                 <Mail size={16} />
               </Link>
             </div>
@@ -111,7 +114,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="footer-bottom">
           <div>
-            &copy; 2026 Operix Inc. All rights reserved.
+            &copy; {BRAND_COPYRIGHT} All rights reserved.
           </div>
           <div className="footer-legal-links">
             <Link href="#privacy" className="footer-link">Privacy Policy</Link>

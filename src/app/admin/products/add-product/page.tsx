@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "../../../config/branding";
 import {
   ArrowLeft,
   Barcode,
@@ -253,7 +254,7 @@ export default function AddProductPage() {
               <div className="formGrid">
                 <label className="field full">
                   <span>SEO Title</span>
-                  <input placeholder="e.g. Handcrafted Banarasi Silk Saree | Red | BizOS Store" />
+                  <input placeholder={`e.g. Handcrafted Banarasi Silk Saree | Red | ${BRAND_NAME} Store`} />
                   <small>0/60 characters recommended</small>
                 </label>
                 <label className="field full">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./Pricing.css";
+import ScrollReveal from "./ScrollReveal";
 
 import { Check } from "lucide-react";
 
@@ -7,18 +8,20 @@ export default function Pricing() {
   return (
     <section id="pricing" className="section-padding">
       <div className="lp-container">
-        <div className="section-header">
-          <div className="badge">
-            <span className="badge-dot"></span>
-            <span>Pricing</span>
+        <ScrollReveal animation="slide-up" duration={800}>
+          <div className="section-header">
+            <div className="badge">
+              <span className="badge-dot"></span>
+              <span>Pricing</span>
+            </div>
+            <h2>Simple Pricing</h2>
+            <p>No hidden fees. No per-user traps. Cancel anytime.</p>
           </div>
-          <h2>Simple Pricing</h2>
-          <p>No hidden fees. No per-user traps. Cancel anytime.</p>
-        </div>
+        </ScrollReveal>
 
         <div className="pricing-grid">
           {/* Starter Plan */}
-          <div className="pricing-card glass-panel">
+          <ScrollReveal animation="slide-up" duration={700} delay={0} className="pricing-card glass-panel">
             <h3 className="pricing-title">Starter</h3>
             <p className="pricing-sub">Perfect for new businesses</p>
             <div className="pricing-price">
@@ -55,10 +58,10 @@ export default function Pricing() {
             <Link href="/admin/dashboard" className="btn-pricing">
               <span>Start for Free &rarr;</span>
             </Link>
-          </div>
+          </ScrollReveal>
 
           {/* Growth Plan (Featured) */}
-          <div className="pricing-card featured glass-panel">
+          <ScrollReveal animation="slide-up" duration={700} delay={100} className="pricing-card featured glass-panel">
             <span className="pricing-card-badge">Most Popular</span>
             <h3 className="pricing-title">Growth</h3>
             <p className="pricing-sub">For scaling operations</p>
@@ -104,10 +107,10 @@ export default function Pricing() {
             <Link href="/admin/dashboard" className="btn-pricing featured-btn">
               <span>Start Free Trial &rarr;</span>
             </Link>
-          </div>
+          </ScrollReveal>
 
           {/* Enterprise Plan */}
-          <div className="pricing-card glass-panel">
+          <ScrollReveal animation="slide-up" duration={700} delay={200} className="pricing-card glass-panel">
             <h3 className="pricing-title">Enterprise</h3>
             <p className="pricing-sub">For complex organizations</p>
             <div className="pricing-price">
@@ -152,7 +155,7 @@ export default function Pricing() {
             <Link href="/admin/dashboard" className="btn-pricing">
               <span>Contact Sales &rarr;</span>
             </Link>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

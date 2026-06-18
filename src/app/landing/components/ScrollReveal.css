@@ -1,0 +1,39 @@
+/* Premium Scroll Reveal CSS Stylesheet */
+
+.landing-page .reveal-wrapper {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Starting States */
+.landing-page .reveal-wrapper.reveal-fade-in {
+  transform: none;
+}
+
+.landing-page .reveal-wrapper.reveal-slide-up {
+  transform: translateY(30px);
+}
+
+.landing-page .reveal-wrapper.reveal-slide-down {
+  transform: translateY(-30px);
+}
+
+.landing-page .reveal-wrapper.reveal-slide-left {
+  transform: translateX(30px);
+}
+
+.landing-page .reveal-wrapper.reveal-slide-right {
+  transform: translateX(-30px);
+}
+
+.landing-page .reveal-wrapper.reveal-scale-up {
+  transform: scale(0.95);
+}
+
+/* Active Revealed State */
+.landing-page .reveal-wrapper.revealed {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}

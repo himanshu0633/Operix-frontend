@@ -1,5 +1,7 @@
 import { Star } from "lucide-react";
 import "./Testimonials.css";
+import ScrollReveal from "./ScrollReveal";
+import { BRAND_NAME } from "../../config/branding";
 
 
 interface Testimonial {
@@ -14,7 +16,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: "sarah",
-    quote: `"Operix replaced 6 separate tools for us. Our team now works from one workspace, inventory syncs with our website automatically, and our accounting is always up to date. It's transformed how we operate."`,
+    quote: `"${BRAND_NAME} replaced 6 separate tools for us. Our team now works from one workspace, inventory syncs with our website automatically, and our accounting is always up to date. It's transformed how we operate."`,
     author: "Sarah Mitchell",
     role: "CEO at NovaTech Solutions",
     avatarText: "SM",
@@ -42,17 +44,25 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="section-padding" style={{ background: 'rgba(255, 255, 255, 0.01)' }}>
       <div className="lp-container">
-        <div className="section-header">
-          <div className="badge">
-            <span className="badge-dot"></span>
-            <span>Customer Stories</span>
+        <ScrollReveal animation="slide-up" duration={800}>
+          <div className="section-header">
+            <div className="badge">
+              <span className="badge-dot"></span>
+              <span>Customer Stories</span>
+            </div>
+            <h2>Trusted By Growing Businesses</h2>
           </div>
-          <h2>Trusted By Growing Businesses</h2>
-        </div>
+        </ScrollReveal>
 
         <div className="testimonials-grid">
-          {testimonials.map((t) => (
-            <div key={t.id} className="testimonial-card glass-panel">
+          {testimonials.map((t, idx) => (
+            <ScrollReveal
+              key={t.id}
+              className="testimonial-card glass-panel"
+              animation="slide-up"
+              delay={idx * 80}
+              duration={600}
+            >
               <div>
                 <div className="star-rating">
                   <Star size={14} fill="#fbbf24" stroke="none" />
@@ -75,7 +85,7 @@ export default function Testimonials() {
                   <div className="author-role">{t.role}</div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

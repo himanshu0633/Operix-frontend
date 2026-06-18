@@ -1,5 +1,7 @@
 import Link from "next/link";
 import "./Hero.css";
+import ScrollReveal from "./ScrollReveal";
+import { BRAND_NAME } from "../../config/branding";
 
 import {
   ArrowRight,
@@ -32,7 +34,8 @@ export default function Hero() {
   return (
     <section className="section-padding">
       <div className="lp-container hero-grid">
-        <div className="hero-content">
+        <ScrollReveal animation="slide-up" duration={800}>
+          <div className="hero-content">
           <div className="badge hero-badge">
             <span className="badge-dot"></span>
             <span>Unified Business Operating System</span>
@@ -80,8 +83,10 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </ScrollReveal>
 
-        <div className="hero-visual">
+        <ScrollReveal animation="scale-up" duration={1000} delay={200}>
+          <div className="hero-visual">
           {/* Main Dashboard Window Mock */}
           <div className="dash-window">
             <div className="dash-scaler">
@@ -95,7 +100,7 @@ export default function Hero() {
                       <span className="dash-sidebar-logo-dot"></span>
                       <span className="dash-sidebar-logo-dot"></span>
                     </div>
-                    <span>BizOS</span>
+                    <span>{BRAND_NAME}</span>
                   </div>
 
                   <div className="dash-sidebar-group">
@@ -636,6 +641,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </ScrollReveal>
       </div>
     </section>
   );

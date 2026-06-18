@@ -1,29 +1,34 @@
 import { Bot, Send, Sparkles, TrendingUp } from "lucide-react";
 import "./AiAssistant.css";
+import ScrollReveal from "./ScrollReveal";
+import { BRAND_NAME } from "../../config/branding";
 
 
 export default function AiAssistant() {
   return (
     <section id="ai-assistant" className="section-padding" style={{ background: '#070913' }}>
       <div className="lp-container">
-        <div className="section-header">
-          <div className="badge">
-            <Sparkles size={12} />
-            <span>AI Business Assistant</span>
+        <ScrollReveal animation="slide-up" duration={800}>
+          <div className="section-header">
+            <div className="badge">
+              <Sparkles size={12} />
+              <span>AI Business Assistant</span>
+            </div>
+            <h2>Ask Your Business Anything</h2>
+            <p>Get instant answers from your business data.</p>
           </div>
-          <h2>Ask Your Business Anything</h2>
-          <p>Get instant answers from your business data.</p>
-        </div>
+        </ScrollReveal>
 
-        <div className="mock-chat-window">
-          {/* Chat Header */}
+        <ScrollReveal animation="scale-up" duration={1000} delay={200}>
+          <div className="mock-chat-window">
+            {/* Chat Header */}
           <div className="mock-chat-header">
             <div className="chat-header-user">
               <div className="chat-bot-avatar">
                 <Bot size={18} />
               </div>
               <div>
-                <div className="chat-header-name">Operix AI</div>
+                <div className="chat-header-name">{BRAND_NAME} AI</div>
                 <div className="chat-header-status">
                   <span className="chat-status-dot"></span>
                   <span>Online</span>
@@ -80,7 +85,8 @@ export default function AiAssistant() {
               </button>
             </div>
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

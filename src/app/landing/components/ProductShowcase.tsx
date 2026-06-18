@@ -1,5 +1,7 @@
 import Link from "next/link";
 import "./ProductShowcase.css";
+import ScrollReveal from "./ScrollReveal";
+import { BRAND_NAME } from "../../config/branding";
 
 import {
   Check,
@@ -44,7 +46,8 @@ export default function ProductShowcase() {
            ==================================================== */}
         <div id="product-management" className="feature-block">
           <div className="feature-text-side">
-            <div className="badge showcase-badge-pm">
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="badge showcase-badge-pm">
               <span className="badge-dot"></span>
               <span>Product Management</span>
             </div>
@@ -85,10 +88,12 @@ export default function ProductShowcase() {
               <span>Explore Product Management</span>
               <ArrowRight size={16} />
             </Link>
+            </ScrollReveal>
           </div>
 
           <div className="feature-visual-side">
-            <div className="mock-dash-window">
+            <ScrollReveal animation="scale-up" duration={1000} delay={150}>
+              <div className="mock-dash-window">
               <div className="mock-dash-scaler">
                 {/* Sidebar */}
                 <aside className="mock-dash-sidebar">
@@ -100,7 +105,7 @@ export default function ProductShowcase() {
                         <span className="mock-sidebar-logo-dot"></span>
                         <span className="mock-sidebar-logo-dot"></span>
                       </div>
-                      <span>BizOS</span>
+                      <span>{BRAND_NAME}</span>
                     </div>
 
                     <div className="mock-sidebar-group">
@@ -458,6 +463,7 @@ export default function ProductShowcase() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -466,7 +472,8 @@ export default function ProductShowcase() {
            ==================================================== */}
         <div id="website-builder" className="feature-block row-reverse">
           <div className="feature-text-side" style={{ paddingLeft: '20px' }}>
-            <div className="badge showcase-badge-wb">
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="badge showcase-badge-wb">
               <span className="badge-dot" style={{ backgroundColor: '#2dd4bf', boxShadow: '0 0 8px #2dd4bf' }}></span>
               <span>Website Builder</span>
             </div>
@@ -507,10 +514,12 @@ export default function ProductShowcase() {
               <span>Explore Website Builder</span>
               <ArrowRight size={16} />
             </Link>
+            </ScrollReveal>
           </div>
 
           <div className="feature-visual-side">
-            <div className="mock-dash-window">
+            <ScrollReveal animation="scale-up" duration={1000} delay={150}>
+              <div className="mock-dash-window">
               <div className="mock-dash-scaler">
                 {/* Sidebar */}
                 <aside className="mock-dash-sidebar">
@@ -522,7 +531,7 @@ export default function ProductShowcase() {
                         <span className="mock-sidebar-logo-dot"></span>
                         <span className="mock-sidebar-logo-dot"></span>
                       </div>
-                      <span>BizOS</span>
+                      <span>{BRAND_NAME}</span>
                     </div>
 
                     <div className="mock-sidebar-group">
@@ -859,6 +868,7 @@ export default function ProductShowcase() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -866,21 +876,23 @@ export default function ProductShowcase() {
             SECTION 3: MARKETING & CAMPAIGNS
            ==================================================== */}
         <div id="marketing-campaigns" style={{ textAlign: 'center' }}>
-          <div className="section-header">
-            <div className="badge showcase-badge-mc">
-              <span className="badge-dot"></span>
-              <span>Marketing & Campaigns</span>
+          <ScrollReveal animation="slide-up" duration={800}>
+            <div className="section-header">
+              <div className="badge showcase-badge-mc">
+                <span className="badge-dot"></span>
+                <span>Marketing & Campaigns</span>
+              </div>
+              <h2>Promote Products Smarter</h2>
+              <p>
+                Create AI-powered marketing content, launch campaigns, manage creatives, and track
+                performance without marketing complexity.
+              </p>
             </div>
-            <h2>Promote Products Smarter</h2>
-            <p>
-              Create AI-powered marketing content, launch campaigns, manage creatives, and track
-              performance without marketing complexity.
-            </p>
-          </div>
+          </ScrollReveal>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '40px' }}>
             {/* Left Column Stat Cards */}
-            <div className="marketing-stat-col">
+            <ScrollReveal animation="slide-up" duration={800} delay={50} className="marketing-stat-col">
               <div className="stat-card">
                 <div className="stat-card-top-row">
                   <div className="stat-card-icon mkt-studio">
@@ -908,10 +920,10 @@ export default function ProductShowcase() {
                   <span className="stat-card-metric-label">cost reduction</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Center Visual: Marketing Dashboard Mockup */}
-            <div className="marketing-center-visual">
+            <ScrollReveal animation="scale-up" duration={1000} delay={150} className="marketing-center-visual">
               <div className="mock-dash-window">
                 <div className="mock-dash-scaler">
                   {/* Sidebar */}
@@ -924,7 +936,7 @@ export default function ProductShowcase() {
                           <span className="mock-sidebar-logo-dot"></span>
                           <span className="mock-sidebar-logo-dot"></span>
                         </div>
-                        <span>BizOS</span>
+                        <span>{BRAND_NAME}</span>
                       </div>
 
                       <div className="mock-sidebar-group">
@@ -1380,10 +1392,10 @@ export default function ProductShowcase() {
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Right Column Stat Cards */}
-            <div className="marketing-stat-col">
+            <ScrollReveal animation="slide-up" duration={800} delay={250} className="marketing-stat-col">
               <div className="stat-card">
                 <div className="stat-card-top-row">
                   <div className="stat-card-icon analytics">
@@ -1417,7 +1429,7 @@ export default function ProductShowcase() {
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -1426,7 +1438,8 @@ export default function ProductShowcase() {
            ==================================================== */}
         <div id="accounting-analytics" className="feature-block">
           <div className="feature-text-side">
-            <div className="badge showcase-badge-aa">
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="badge showcase-badge-aa">
               <span className="badge-dot" style={{ backgroundColor: '#fbbf24', boxShadow: '0 0 8px #fbbf24' }}></span>
               <span>Accounting & Analytics</span>
             </div>
@@ -1492,10 +1505,12 @@ export default function ProductShowcase() {
               <span>Explore Accounting</span>
               <ArrowRight size={16} />
             </Link>
+            </ScrollReveal>
           </div>
 
           <div className="feature-visual-side">
-            <div className="mock-dash-window">
+            <ScrollReveal animation="scale-up" duration={1000} delay={150}>
+              <div className="mock-dash-window">
               <div className="mock-dash-scaler">
                 {/* Sidebar */}
                 <aside className="mock-dash-sidebar">
@@ -1507,7 +1522,7 @@ export default function ProductShowcase() {
                         <span className="mock-sidebar-logo-dot"></span>
                         <span className="mock-sidebar-logo-dot"></span>
                       </div>
-                      <span>BizOS</span>
+                      <span>{BRAND_NAME}</span>
                     </div>
 
                     <div className="mock-sidebar-group">
@@ -1932,6 +1947,7 @@ export default function ProductShowcase() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
           </div>
         </div>
 

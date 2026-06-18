@@ -1,3 +1,4 @@
+import { BRAND_NAME, BRAND_DOMAIN } from "../../../config/branding";
 import {
   BarChart3,
   BookOpen,
@@ -69,7 +70,7 @@ export function Sidebar({ activePage }: SidebarProps) {
           <Warehouse size={22} />
         </div>
         <div>
-          <strong>BizOS</strong>
+          <strong>{BRAND_NAME}</strong>
           <span>Business Suite</span>
         </div>
       </div>
@@ -117,7 +118,7 @@ export function Sidebar({ activePage }: SidebarProps) {
           <div className="avatar">G</div>
           <div>
             <strong>Himanshu </strong>
-            <span>Himanshu@bizos.in</span>
+            <span>Himanshu@{BRAND_DOMAIN.toLowerCase()}</span>
           </div>
           <ChevronDown size={15} />
         </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./FinalCta.css";
+import ScrollReveal from "./ScrollReveal";
 
 import { ArrowRight, Calendar } from "lucide-react";
 
@@ -7,8 +8,9 @@ export default function FinalCta() {
   return (
     <section className="final-cta-section">
       <div className="lp-container">
-        <h2>Start Running Your Business Smarter</h2>
-        <p>One platform for operations, commerce, marketing, and growth.</p>
+        <ScrollReveal animation="scale-up" duration={900}>
+          <h2>Start Running Your Business Smarter</h2>
+          <p>One platform for operations, commerce, marketing, and growth.</p>
         
         <div className="final-cta-ctas">
           <Link href="/admin/dashboard" className="btn-primary btn-large">
@@ -24,6 +26,7 @@ export default function FinalCta() {
         <div className="final-cta-subtext">
           No credit card required. 14-day free trial. Cancel anytime.
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );
