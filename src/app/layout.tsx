@@ -13,8 +13,11 @@ import "./admin/customers/customers.css";
 import "./landing/landing.css";
 
 export const metadata: Metadata = {
-  title: "Super Admin Console",
+  title: "nexinfosoft",
   description: "Super admin dashboard built with Next.js and Node.js",
+  icons: {
+    icon: "/logo-full.png",
+  },
 };
 
 export default function RootLayout({
