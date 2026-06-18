@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { BarChart3, Bell, Globe2, Package, Plus, ReceiptIndianRupee, Send, ShoppingBag, Sparkles, Wallet } from "lucide-react";
 import { AdminShell } from "../components/AdminShell";
 
@@ -86,6 +89,15 @@ const activity = [
 ];
 
 export default function Home() {
+  const [adminChartKey, setAdminChartKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAdminChartKey((prev) => prev + 1);
+    }, 7500); // 2.5s animation duration + 5s pause
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <AdminShell activePage="dashboard">
       <section className="content">
@@ -156,9 +168,41 @@ export default function Home() {
                 <div className="chartLabels">
                   <span>₹36L</span><span>₹27L</span><span>₹18L</span><span>₹9L</span><span>₹0L</span>
                 </div>
-                <svg viewBox="0 0 680 260" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M0 190 C45 155 75 155 120 175 C160 195 168 130 220 142 C275 157 285 102 350 96 C394 92 405 145 455 134 C520 122 548 90 592 116 C630 138 644 108 680 66 L680 260 L0 260 Z" />
-                  <path d="M0 190 C45 155 75 155 120 175 C160 195 168 130 220 142 C275 157 285 102 350 96 C394 92 405 145 455 134 C520 122 548 90 592 116 C630 138 644 108 680 66" />
+                <svg key={adminChartKey} viewBox="0 0 680 260" preserveAspectRatio="none" aria-hidden="true" style={{ overflow: 'visible' }}>
+                  <defs>
+                    <linearGradient id="admin-rev-glow" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#7c86ff" stopOpacity="0.16" />
+                      <stop offset="100%" stopColor="#7c86ff" stopOpacity="0" />
+                    </linearGradient>
+                    <linearGradient id="admin-orders-glow" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#4ad1b7" stopOpacity="0.12" />
+                      <stop offset="100%" stopColor="#4ad1b7" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  {/* Revenue Fill */}
+                  <path d="M10 190 C54 155 83 155 126 175 C165 195 173 130 224 142 C277 157 287 102 350 96 C392 92 403 145 452 134 C515 122 542 90 585 116 C621 138 635 108 670 66 L670 260 L10 260 Z" fill="url(#admin-rev-glow)" className="rev-fill" />
+                  {/* Orders Fill */}
+                  <path d="M10 210 C54 185 83 175 126 190 C165 210 173 150 224 165 C277 180 287 120 350 115 C392 110 403 170 452 155 C515 140 542 110 585 135 C621 155 635 130 670 95 L670 260 L10 260 Z" fill="url(#admin-orders-glow)" className="orders-fill" />
+                  {/* Revenue Line */}
+                  <path d="M10 190 C54 155 83 155 126 175 C165 195 173 130 224 142 C277 157 287 102 350 96 C392 92 403 145 452 134 C515 122 542 90 585 116 C621 138 635 108 670 66" className="rev-stroke" />
+                  {/* Orders Line */}
+                  <path d="M10 210 C54 185 83 175 126 190 C165 210 173 150 224 165 C277 180 287 120 350 115 C392 110 403 170 452 155 C515 140 542 110 585 135 C621 155 635 130 670 95" className="orders-stroke" />
+                  
+                  {/* Pulsing end points */}
+                  <g className="admin-chart-points">
+                    {/* Revenue dot */}
+                    <circle cx="670" cy="66" r="3" fill="#7c86ff" />
+                    <circle cx="670" cy="66" r="3" fill="none" stroke="#7c86ff" strokeWidth="1">
+                      <animate attributeName="r" values="3;9" dur="2.2s" repeatCount="indefinite" begin="2s" />
+                      <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite" begin="2s" />
+                    </circle>
+                    {/* Orders dot */}
+                    <circle cx="670" cy="95" r="3" fill="#4ad1b7" />
+                    <circle cx="670" cy="95" r="3" fill="none" stroke="#4ad1b7" strokeWidth="1">
+                      <animate attributeName="r" values="3;9" dur="2.2s" repeatCount="indefinite" begin="2.3s" />
+                      <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite" begin="2.3s" />
+                    </circle>
+                  </g>
                 </svg>
                 <div className="months">
                   {["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"].map((month) => (

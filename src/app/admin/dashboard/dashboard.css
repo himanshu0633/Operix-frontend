@@ -570,14 +570,64 @@
   height: 216px;
 }
 
-.chartBox svg path:first-child {
-  fill: rgba(124, 134, 255, 0.08);
+.chartBox svg path.rev-fill {
+  fill: url(#admin-rev-glow);
+  opacity: 0;
+  animation: fadeInAdminFill 1.8s ease-out forwards;
+  animation-delay: 1.2s;
 }
 
-.chartBox svg path:last-child {
+.chartBox svg path.orders-fill {
+  fill: url(#admin-orders-glow);
+  opacity: 0;
+  animation: fadeInAdminFill 1.8s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+.chartBox svg path.rev-stroke {
+  fill: none;
+  stroke: #7c86ff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawAdminPath 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chartBox svg path.orders-stroke {
   fill: none;
   stroke: #4ad1b7;
   stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawAdminPath 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+.admin-chart-points {
+  opacity: 0;
+  animation: fadeInAdminFill 0.5s ease-out forwards;
+  animation-delay: 2s;
+}
+
+/* Admin Chart Animations */
+@keyframes drawAdminPath {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeInAdminFill {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .months {

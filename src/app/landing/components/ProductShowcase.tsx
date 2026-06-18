@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "./ProductShowcase.css";
 import ScrollReveal from "./ScrollReveal";
@@ -37,6 +40,15 @@ import {
 } from "lucide-react";
 
 export default function ProductShowcase() {
+  const [showcaseKey, setShowcaseKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowcaseKey((prev) => prev + 1);
+    }, 7500); // 2.5s animation duration + 5s pause
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="section-padding" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
       <div className="lp-container" style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
@@ -1779,30 +1791,47 @@ export default function ProductShowcase() {
                         
                         {/* SVG Chart */}
                         <div style={{ height: '70px', width: '100%', position: 'relative', marginTop: '8px' }}>
-                          <svg viewBox="0 0 320 70" width="100%" height="100%" style={{ overflow: 'visible' }}>
+                          <svg key={showcaseKey} viewBox="0 0 320 70" width="100%" height="100%" style={{ overflow: 'visible' }}>
                             <line x1="0" y1="10" x2="320" y2="10" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
                             <line x1="0" y1="35" x2="320" y2="35" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
                             <line x1="0" y1="60" x2="320" y2="60" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
                             
                             {/* Revenue Line (Gold) */}
                             <path
-                              d="M0,60 L50,52 L100,32 L150,42 L200,25 L250,15 L320,8"
+                              d="M6,60 L50,52 L100,32 L150,42 L200,25 L250,15 L314,8"
                               fill="none"
                               stroke="#fbbf24"
                               strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
+                              className="showcase-acc-revenue-line"
                             />
                             {/* Expenses Line (Red) */}
                             <path
-                              d="M0,63 L50,58 L100,55 L150,51 L200,48 L250,49 L320,44"
+                              d="M6,63 L50,58 L100,55 L150,51 L200,48 L250,49 L314,44"
                               fill="none"
                               stroke="#f87171"
                               strokeWidth="1.5"
                               strokeLinecap="round"
                               strokeLinejoin="round"
                               strokeDasharray="3,3"
+                              className="showcase-acc-expenses-line"
                             />
+                            {/* Pulsing end points */}
+                            <g className="showcase-acc-chart-points">
+                              {/* Revenue dot */}
+                              <circle cx="314" cy="8" r="2" fill="#fbbf24" />
+                              <circle cx="314" cy="8" r="2" fill="none" stroke="#fbbf24" strokeWidth="0.5">
+                                <animate attributeName="r" values="2;6" dur="2.2s" repeatCount="indefinite" begin="2s" />
+                                <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite" begin="2s" />
+                              </circle>
+                              {/* Expenses dot */}
+                              <circle cx="314" cy="44" r="2" fill="#f87171" />
+                              <circle cx="314" cy="44" r="2" fill="none" stroke="#f87171" strokeWidth="0.5">
+                                <animate attributeName="r" values="2;6" dur="2.2s" repeatCount="indefinite" begin="2.3s" />
+                                <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite" begin="2.3s" />
+                              </circle>
+                            </g>
                           </svg>
                           <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', fontSize: '7px', color: 'var(--lp-text-muted)', borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '4px', marginTop: '4px' }}>
                             <span>Jan</span>

@@ -643,6 +643,58 @@
   padding-bottom: 4px;
 }
 
+/* Hero Chart Animations */
+@keyframes drawHeroPath {
+  from {
+    stroke-dashoffset: 300;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeInHeroFill {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dash-rev-line-revenue {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawHeroPath 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  stroke-linecap: round;
+}
+
+.dash-rev-fill-revenue {
+  opacity: 0;
+  animation: fadeInHeroFill 1.8s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+.dash-rev-line-orders {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawHeroPath 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+  stroke-linecap: round;
+}
+
+.dash-rev-fill-orders {
+  opacity: 0;
+  animation: fadeInHeroFill 1.8s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+.dash-chart-points {
+  opacity: 0;
+  animation: fadeInHeroFill 0.5s ease-out forwards;
+  animation-delay: 2s;
+}
+
 .dash-rev-axis {
   display: flex;
   justify-content: space-between;

@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "./Hero.css";
 import ScrollReveal from "./ScrollReveal";
@@ -31,6 +34,15 @@ import {
 } from "lucide-react";
 
 export default function Hero() {
+  const [animationKey, setAnimationKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimationKey((prev) => prev + 1);
+    }, 7500); // 2.5s animation duration + 5s pause
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="section-padding">
       <div className="lp-container hero-grid">
@@ -362,23 +374,60 @@ export default function Hero() {
                         </div>
                         {/* SVG line graph */}
                         <div className="dash-rev-chart">
-                          <svg viewBox="0 0 200 40" style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}>
-                            <path
-                              d="M0,35 Q20,20 40,28 T80,18 T125,25 T165,10 T200,8"
-                              fill="none"
-                              stroke="#6366f1"
-                              strokeWidth="1.5"
-                            />
-                            <path
-                              d="M0,35 Q20,20 40,28 T80,18 T125,25 T165,10 T200,8 L200,40 L0,40 Z"
-                              fill="url(#rev-glow)"
-                            />
+                          <svg key={animationKey} viewBox="0 0 200 40" style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
                             <defs>
                               <linearGradient id="rev-glow" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stopColor="#6366f1" stopOpacity="0.15" />
                                 <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
                               </linearGradient>
+                              <linearGradient id="orders-glow" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.12" />
+                                <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
+                              </linearGradient>
                             </defs>
+                            {/* Revenue fill */}
+                            <path
+                              d="M4,35 Q23,20 42,28 T81,18 T123,25 T161,10 T196,8 L196,40 L4,40 Z"
+                              fill="url(#rev-glow)"
+                              className="dash-rev-fill-revenue"
+                            />
+                            {/* Orders fill */}
+                            <path
+                              d="M4,38 Q23,28 42,32 T81,24 T123,28 T161,18 T196,16 L196,40 L4,40 Z"
+                              fill="url(#orders-glow)"
+                              className="dash-rev-fill-orders"
+                            />
+                            {/* Revenue line */}
+                            <path
+                              d="M4,35 Q23,20 42,28 T81,18 T123,25 T161,10 T196,8"
+                              fill="none"
+                              stroke="#6366f1"
+                              strokeWidth="1.2"
+                              className="dash-rev-line-revenue"
+                            />
+                            {/* Orders line */}
+                            <path
+                              d="M4,38 Q23,28 42,32 T81,24 T123,28 T161,18 T196,16"
+                              fill="none"
+                              stroke="#38bdf8"
+                              strokeWidth="1.2"
+                              className="dash-rev-line-orders"
+                            />
+                            {/* Pulsing end points */}
+                            <g className="dash-chart-points">
+                              {/* Revenue dot */}
+                              <circle cx="196" cy="8" r="1.5" fill="#6366f1" />
+                              <circle cx="196" cy="8" r="1.5" fill="none" stroke="#6366f1" strokeWidth="0.5">
+                                <animate attributeName="r" values="1.5;4.5" dur="2.2s" repeatCount="indefinite" begin="2s" />
+                                <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite" begin="2s" />
+                              </circle>
+                              {/* Orders dot */}
+                              <circle cx="196" cy="16" r="1.5" fill="#38bdf8" />
+                              <circle cx="196" cy="16" r="1.5" fill="none" stroke="#38bdf8" strokeWidth="0.5">
+                                <animate attributeName="r" values="1.5;4.5" dur="2.2s" repeatCount="indefinite" begin="2.3s" />
+                                <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite" begin="2.3s" />
+                              </circle>
+                            </g>
                           </svg>
                         </div>
                         <div className="dash-rev-axis">

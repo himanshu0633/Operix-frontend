@@ -1394,3 +1394,41 @@
     flex-direction: column !important;
   }
 }
+
+/* ProductShowcase Accounting Mockup Chart Animations */
+@keyframes drawShowcaseAccPath {
+  from {
+    stroke-dashoffset: 500;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeInShowcaseAccPoints {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.showcase-acc-revenue-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawShowcaseAccPath 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.showcase-acc-expenses-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawShowcaseAccPath 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+.showcase-acc-chart-points {
+  opacity: 0;
+  animation: fadeInShowcaseAccPoints 0.5s ease-out forwards;
+  animation-delay: 2s;
+}
