@@ -20,10 +20,10 @@ export default function Header() {
         </Link>
 
         <nav className="lp-nav">
-          <Link href="#product" className="nav-link">Product</Link>
-          <Link href="#solutions" className="nav-link">Solutions</Link>
-          <Link href="#pricing" className="nav-link">Pricing</Link>
-          <Link href="#resources" className="nav-link">Resources</Link>
+          <Link href="/product" className="nav-link">Product</Link>
+          <Link href="/solutions" className="nav-link">Solutions</Link>
+          <Link href="/pricing" className="nav-link">Pricing</Link>
+          <Link href="/#resources" className="nav-link">Resources</Link>
         </nav>
 
         <div className="header-actions">

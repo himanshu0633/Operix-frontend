@@ -19,7 +19,6 @@ export default function Home() {
         <Modules />
         <ProductShowcase />
         <AiAssistant />
-        
         <Pricing />
         <Testimonials />
         <FinalCta />

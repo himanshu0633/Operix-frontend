@@ -6,7 +6,7 @@ import { Twitter, Linkedin, Github, Youtube, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="lp-footer">
+    <footer id="resources" className="lp-footer">
       <div className="lp-container">
         <div className="footer-grid">
           {/* Brand Info */}
