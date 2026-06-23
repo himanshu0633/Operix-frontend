@@ -1,7 +1,36 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BarChart3, Bell, Globe2, Package, Plus, ReceiptIndianRupee, Send, ShoppingBag, Sparkles, Wallet } from "lucide-react";
+import {
+  ArrowLeft,
+  BarChart3,
+  Bell,
+  Box,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  Circle,
+  ExternalLink,
+  Eye,
+  Gauge,
+  Globe2,
+  Lock,
+  Package,
+  Palette,
+  Pencil,
+  Plus,
+  ReceiptIndianRupee,
+  RefreshCw,
+  SearchCheck,
+  Send,
+  Server,
+  ShoppingBag,
+  Smartphone,
+  Sparkles,
+  Upload,
+  Wallet,
+  Wand2,
+} from "lucide-react";
 import { AdminShell } from "../components/AdminShell";
 
 const quickActions = ["Add Product", "Create Invoice", "Publish Website", "Run Campaign"];
@@ -88,8 +117,65 @@ const activity = [
   { title: "Checkout completed", meta: "Vikram Singh - ₹3,420", time: "24 min ago", tone: "green" },
 ];
 
+const websiteStats = [
+  { label: "Website Status", value: "Live", meta: "Deployed 2h ago", icon: Globe2, tone: "mint" },
+  { label: "Published Products", value: "124", meta: "12 pending review", icon: Box, tone: "blue" },
+  { label: "Website Visitors", value: "2,841", meta: "This week", icon: UsersIcon, tone: "cyan" },
+  { label: "Conversion Rate", value: "3.2%", meta: "+0.4% vs last week", icon: BarChart3, tone: "teal" },
+  { label: "Active Theme", value: "Lumina", meta: "Edited today", icon: Palette, tone: "amber" },
+];
+
+const websiteTemplates = [
+  { name: "Lumina", tag: "Fashion", tone: "lumina" },
+  { name: "Nexus", tag: "Electronics", tone: "nexus" },
+  { name: "Verde", tag: "Grocery", tone: "verde" },
+  { name: "Aria", tag: "Beauty", tone: "aria" },
+  { name: "Aura", tag: "Decor", tone: "aura" },
+  { name: "Terra", tag: "Organic", tone: "terra" },
+  { name: "Slate", tag: "Office", tone: "slate" },
+  { name: "Saffron", tag: "Crafts", tone: "saffron" },
+];
+
+const builderSteps = ["Business Setup", "Choose Template", "Connect Products", "Customization", "Domain & Hosting", "Publish"];
+
+const websiteProducts = [
+  { name: "Handwoven Jute Bag", meta: "Bags · 48 in stock", status: "Published", selected: true },
+  { name: "Silk Saree — Red", meta: "Clothing · 12 in stock", status: "Draft", selected: true },
+  { name: "Ceramic Planter Set", meta: "Home · Out of stock", status: "Published", selected: true, warning: "Out of Stock" },
+  { name: "Bamboo Desk Organizer", meta: "Office · 33 in stock", status: "Hidden", selected: false },
+  { name: "Clay Candle Holder", meta: "Decor · 20 in stock", status: "Draft", selected: false },
+  { name: "Khadi Face Scrub", meta: "Beauty · 88 in stock", status: "Published", selected: false },
+];
+
+const readinessChecks = [
+  { label: "SEO Readiness", value: "Good", icon: SearchCheck },
+  { label: "Mobile Responsiveness", value: "Optimized", icon: Smartphone },
+  { label: "Speed Score", value: "91 / 100", icon: Gauge },
+  { label: "Products Connected", value: "3 products", icon: Box },
+  { label: "SSL Active", value: "Enabled", icon: Lock },
+];
+
+const brandColors = ["#7784ff", "#58d0bd", "#e8b75f", "#ea7171", "#39b6e8", "#9a7ce8", "#ff9138", "#eeeeee"];
+const typographyOptions = ["Satoshi + Inter", "Playfair + Source Sans", "Syne + Manrope", "DM Serif + DM Sans"];
+const layoutStyles = ["Modern Grid", "Classic List", "Magazine", "Minimal"];
+
+function UsersIcon(props: React.ComponentProps<typeof Globe2>) {
+  return <ShoppingBag {...props} />;
+}
+
 export default function Home() {
   const [adminChartKey, setAdminChartKey] = useState(0);
+  const [activeHash, setActiveHash] = useState("");
+  const [builderOpen, setBuilderOpen] = useState(false);
+  const [builderStep, setBuilderStep] = useState(1);
+  const [isPublished, setIsPublished] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState("Lumina");
+  const [selectedProducts, setSelectedProducts] = useState(
+    websiteProducts.filter((product) => product.selected).map((product) => product.name)
+  );
+  const [brandColor, setBrandColor] = useState(brandColors[0]);
+  const [typography, setTypography] = useState(typographyOptions[0]);
+  const [layoutStyle, setLayoutStyle] = useState(layoutStyles[0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -97,6 +183,54 @@ export default function Home() {
     }, 7500); // 2.5s animation duration + 5s pause
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const syncHash = () => setActiveHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, []);
+
+  const showWebsiteBuilder = activeHash === "#website";
+
+  if (showWebsiteBuilder) {
+    return (
+      <AdminShell activePage="website">
+        <WebsiteBuilder
+          builderOpen={builderOpen}
+          builderStep={builderStep}
+          isPublished={isPublished}
+          onOpenBuilder={(step = 1) => {
+            setBuilderOpen(true);
+            setBuilderStep(step);
+            setIsPublished(false);
+          }}
+          onCloseBuilder={() => {
+            setBuilderOpen(false);
+            setBuilderStep(1);
+            setIsPublished(false);
+          }}
+          onNextStep={() => setBuilderStep((step) => Math.min(step + 1, builderSteps.length))}
+          onPrevStep={() => setBuilderStep((step) => Math.max(step - 1, 1))}
+          onStepSelect={(step) => {
+            setBuilderStep(step);
+            setIsPublished(false);
+          }}
+          onPublish={() => setIsPublished(true)}
+          selectedTemplate={selectedTemplate}
+          onTemplateSelect={setSelectedTemplate}
+          selectedProducts={selectedProducts}
+          onProductsChange={setSelectedProducts}
+          brandColor={brandColor}
+          onBrandColorChange={setBrandColor}
+          typography={typography}
+          onTypographyChange={setTypography}
+          layoutStyle={layoutStyle}
+          onLayoutStyleChange={setLayoutStyle}
+        />
+      </AdminShell>
+    );
+  }
 
   return (
     <AdminShell activePage="dashboard">
@@ -110,6 +244,11 @@ export default function Home() {
               {quickActions.map((action) =>
                 action === "Add Product" ? (
                   <a href="/admin/products/add-product" key={action}>
+                    <Plus size={15} />
+                    <span>{action}</span>
+                  </a>
+                ) : action === "Publish Website" ? (
+                  <a href="/admin/dashboard#website" key={action}>
                     <Plus size={15} />
                     <span>{action}</span>
                   </a>
@@ -363,5 +502,535 @@ export default function Home() {
           </section>
       </section>
     </AdminShell>
+  );
+}
+
+type WebsiteBuilderProps = {
+  builderOpen: boolean;
+  builderStep: number;
+  isPublished: boolean;
+  onOpenBuilder: (step?: number) => void;
+  onCloseBuilder: () => void;
+  onNextStep: () => void;
+  onPrevStep: () => void;
+  onStepSelect: (step: number) => void;
+  onPublish: () => void;
+  selectedTemplate: string;
+  onTemplateSelect: (template: string) => void;
+  selectedProducts: string[];
+  onProductsChange: (products: string[]) => void;
+  brandColor: string;
+  onBrandColorChange: (color: string) => void;
+  typography: string;
+  onTypographyChange: (typography: string) => void;
+  layoutStyle: string;
+  onLayoutStyleChange: (layout: string) => void;
+};
+
+function WebsiteBuilder({
+  builderOpen,
+  builderStep,
+  isPublished,
+  onOpenBuilder,
+  onCloseBuilder,
+  onNextStep,
+  onPrevStep,
+  onStepSelect,
+  onPublish,
+  selectedTemplate,
+  onTemplateSelect,
+  selectedProducts,
+  onProductsChange,
+  brandColor,
+  onBrandColorChange,
+  typography,
+  onTypographyChange,
+  layoutStyle,
+  onLayoutStyleChange,
+}: WebsiteBuilderProps) {
+  if (builderOpen) {
+    return (
+      <section className="websiteFlow">
+        <div className="flowTopbar">
+          <button type="button" onClick={builderStep === 1 ? onCloseBuilder : onPrevStep}>
+            <ArrowLeft size={16} />
+            Back
+          </button>
+          <strong>Create Website</strong>
+          <span>Step {isPublished ? 6 : builderStep} of 6</span>
+        </div>
+        <StepProgress activeStep={isPublished ? 6 : builderStep} onStepSelect={onStepSelect} />
+        <div className="flowCanvas">
+          {isPublished ? (
+            <PublishedStep />
+          ) : (
+            <BuilderStep
+              step={builderStep}
+              onPublish={onPublish}
+              selectedTemplate={selectedTemplate}
+              onTemplateSelect={onTemplateSelect}
+              selectedProducts={selectedProducts}
+              onProductsChange={onProductsChange}
+              brandColor={brandColor}
+              onBrandColorChange={onBrandColorChange}
+              typography={typography}
+              onTypographyChange={onTypographyChange}
+              layoutStyle={layoutStyle}
+              onLayoutStyleChange={onLayoutStyleChange}
+            />
+          )}
+        </div>
+        {!isPublished && (
+          <div className="flowActions">
+            <button className="flowSecondary" type="button" onClick={builderStep === 1 ? onCloseBuilder : onPrevStep}>
+              <ArrowLeft size={15} />
+              Back
+            </button>
+            {builderStep < 6 ? (
+              <button className="flowPrimary" type="button" onClick={onNextStep}>
+                Next Step
+                <ChevronRight size={15} />
+              </button>
+            ) : null}
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  return (
+    <section className="websiteBuilder">
+      <div className="wbHero">
+        <div>
+          <h1>Website Builder</h1>
+          <p>Create, customize, and publish your online store in minutes.</p>
+        </div>
+        <div className="wbActions">
+          <button type="button" onClick={() => onOpenBuilder(1)}><Plus size={15} /> Create Website</button>
+          <button type="button"><RefreshCw size={15} /> Publish Changes</button>
+          <button className="accent" type="button"><ExternalLink size={15} /> Open Live Website</button>
+        </div>
+      </div>
+
+      <div className="wbStats">
+        {websiteStats.map((stat) => (
+          <article className={`wbStat ${stat.tone}`} key={stat.label}>
+            <span><stat.icon size={18} /></span>
+            <strong>{stat.value}</strong>
+            <p>{stat.label}</p>
+            <small>{stat.meta}</small>
+          </article>
+        ))}
+      </div>
+
+      <div className="wbLayout">
+        <div className="wbMain">
+          <article className="wbCard launchCard">
+            <div className="launchHead">
+              <div>
+                <h2>Launch your ecommerce website in a few simple steps.</h2>
+                <p>2 of 5 steps completed</p>
+              </div>
+              <button type="button" onClick={() => onOpenBuilder(3)}>Continue Setup</button>
+            </div>
+            <div className="launchBar"><span /></div>
+            <div className="miniSteps">
+              {["Choose Theme", "Add Branding", "Connect Products", "Customize", "Publish"].map((step, index) => (
+                <div className={index < 2 ? "done" : ""} key={step}>
+                  <i>{index < 2 ? <Check size={13} /> : <Circle size={9} />}</i>
+                  <span>{step}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <TemplateLibrary compact selectedTemplate={selectedTemplate} onTemplateSelect={onTemplateSelect} />
+
+          <article className="wbCard aiWebsite">
+            <div className="aiTitle">
+              <span><Wand2 size={18} /></span>
+              <div>
+                <h2>Generate your website with AI.</h2>
+                <p>Describe your business and AI will build the structure, sections, and layout.</p>
+              </div>
+            </div>
+            <div className="aiForm">
+              <label>Business Name<input placeholder="e.g. Riya Crafts" /></label>
+              <label>Industry<input placeholder="e.g. Handmade Goods" /></label>
+              <label>Brand Style<input placeholder="e.g. Minimal and Elegant" /></label>
+              <label>Color Tone<input placeholder="e.g. Warm neutrals" /></label>
+            </div>
+            <button type="button" onClick={() => onOpenBuilder(1)}><Wand2 size={16} /> Generate Website</button>
+          </article>
+        </div>
+
+        <aside className="wbSide">
+          <article className="wbCard editorCard">
+            <div className="browserMock">
+              <div><i /><i /><i /><span /></div>
+              <Globe2 size={27} />
+              <p>yourbusiness.com</p>
+            </div>
+            <h2>Website Editor</h2>
+            <p>Customize your website visually with drag and drop sections.</p>
+            <button type="button"><Pencil size={15} /> Open Editor</button>
+          </article>
+          <StatusPanel />
+          <ProductPublishing />
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+function StepProgress({ activeStep, onStepSelect }: { activeStep: number; onStepSelect: (step: number) => void }) {
+  return (
+    <div className="stepProgress">
+      {builderSteps.map((step, index) => {
+        const number = index + 1;
+        const done = number < activeStep;
+        const active = number === activeStep;
+        return (
+          <button
+            className={`stepItem ${done ? "done" : ""} ${active ? "active" : ""}`}
+            type="button"
+            onClick={() => onStepSelect(number)}
+            key={step}
+          >
+            <span>{done ? <Check size={13} /> : number}</span>
+            <small>{step}</small>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function BuilderStep({
+  step,
+  onPublish,
+  selectedTemplate,
+  onTemplateSelect,
+  selectedProducts,
+  onProductsChange,
+  brandColor,
+  onBrandColorChange,
+  typography,
+  onTypographyChange,
+  layoutStyle,
+  onLayoutStyleChange,
+}: {
+  step: number;
+  onPublish: () => void;
+  selectedTemplate: string;
+  onTemplateSelect: (template: string) => void;
+  selectedProducts: string[];
+  onProductsChange: (products: string[]) => void;
+  brandColor: string;
+  onBrandColorChange: (color: string) => void;
+  typography: string;
+  onTypographyChange: (typography: string) => void;
+  layoutStyle: string;
+  onLayoutStyleChange: (layout: string) => void;
+}) {
+  if (step === 2) return <ChooseTemplateStep selectedTemplate={selectedTemplate} onTemplateSelect={onTemplateSelect} />;
+  if (step === 3) return <ConnectProductsStep selectedProducts={selectedProducts} onProductsChange={onProductsChange} />;
+  if (step === 4) {
+    return (
+      <CustomizationStep
+        brandColor={brandColor}
+        onBrandColorChange={onBrandColorChange}
+        typography={typography}
+        onTypographyChange={onTypographyChange}
+        layoutStyle={layoutStyle}
+        onLayoutStyleChange={onLayoutStyleChange}
+      />
+    );
+  }
+  if (step === 5) return <DomainStep />;
+  if (step === 6) return <PublishStep onPublish={onPublish} />;
+  return <BusinessSetupStep />;
+}
+
+function BusinessSetupStep() {
+  return (
+    <article className="flowPanel businessStep">
+      <h2>Business Setup</h2>
+      <p>Start by setting up your brand identity.</p>
+      <div className="flowGrid">
+        <label>Business Name<input placeholder="e.g. Riya Crafts" /></label>
+        <label>Industry<input placeholder="e.g. Handmade Goods" /></label>
+        <label>Website Name<input placeholder="e.g. riyacrafts.in" /></label>
+        <label>Logo<button type="button"><Upload size={15} /> Upload logo image</button></label>
+      </div>
+      <label className="wideLabel">Business Description<textarea placeholder="Tell customers what your business is about..." /></label>
+    </article>
+  );
+}
+
+function ChooseTemplateStep({
+  selectedTemplate,
+  onTemplateSelect,
+}: {
+  selectedTemplate: string;
+  onTemplateSelect: (template: string) => void;
+}) {
+  return (
+    <div className="templateStep">
+      <h2>Choose a Template</h2>
+      <p>Pick a template to start with. You can customize it later.</p>
+      <div className="aiRecommend"><Wand2 size={15} /> <strong>AI Recommended:</strong> Lumina — best fit for your industry</div>
+      <TemplateLibrary selectedTemplate={selectedTemplate} onTemplateSelect={onTemplateSelect} />
+    </div>
+  );
+}
+
+function ConnectProductsStep({
+  selectedProducts,
+  onProductsChange,
+}: {
+  selectedProducts: string[];
+  onProductsChange: (products: string[]) => void;
+}) {
+  const allSelected = selectedProducts.length === websiteProducts.length;
+
+  const toggleProduct = (productName: string) => {
+    onProductsChange(
+      selectedProducts.includes(productName)
+        ? selectedProducts.filter((name) => name !== productName)
+        : [...selectedProducts, productName]
+    );
+  };
+
+  return (
+    <article className="flowPanel productsStep">
+      <h2>Connect Products</h2>
+      <p>Products and inventory will sync automatically with your website.</p>
+      <div className="selectLine">
+        <span>{selectedProducts.length} of {websiteProducts.length} selected</span>
+        <button type="button" onClick={() => onProductsChange(allSelected ? [] : websiteProducts.map((product) => product.name))}>
+          {allSelected ? "Clear All" : "Select All"}
+        </button>
+      </div>
+      <div className="productSelectList">
+        {websiteProducts.map((product) => {
+          const isSelected = selectedProducts.includes(product.name);
+
+          return (
+          <button
+            className={isSelected ? "selected" : ""}
+            type="button"
+            aria-pressed={isSelected}
+            onClick={() => toggleProduct(product.name)}
+            key={product.name}
+          >
+            <i>{isSelected ? <Check size={13} /> : null}</i>
+            <div><strong>{product.name}</strong><span>{product.meta}</span></div>
+            {product.warning ? <em>{product.warning}</em> : null}
+          </button>
+          );
+        })}
+      </div>
+    </article>
+  );
+}
+
+function CustomizationStep({
+  brandColor,
+  onBrandColorChange,
+  typography,
+  onTypographyChange,
+  layoutStyle,
+  onLayoutStyleChange,
+}: {
+  brandColor: string;
+  onBrandColorChange: (color: string) => void;
+  typography: string;
+  onTypographyChange: (typography: string) => void;
+  layoutStyle: string;
+  onLayoutStyleChange: (layout: string) => void;
+}) {
+  return (
+    <article className="flowPanel customStep">
+      <h2>Website Customization</h2>
+      <p>Set your brand colors, typography, and layout style.</p>
+      <span className="fieldTitle">Brand Color</span>
+      <div className="swatches">
+        {brandColors.map((color) => (
+          <button
+            className={brandColor === color ? "active" : ""}
+            style={{ background: color }}
+            type="button"
+            aria-label={`Select brand color ${color}`}
+            aria-pressed={brandColor === color}
+            onClick={() => onBrandColorChange(color)}
+            key={color}
+          />
+        ))}
+      </div>
+      <span className="fieldTitle">Typography</span>
+      <div className="optionList">
+        {typographyOptions.map((option) => (
+          <button
+            className={typography === option ? "active" : ""}
+            type="button"
+            aria-pressed={typography === option}
+            onClick={() => onTypographyChange(option)}
+            key={option}
+          >
+            {option}
+            {typography === option ? <Check size={14} /> : null}
+          </button>
+        ))}
+      </div>
+      <span className="fieldTitle">Layout Style</span>
+      <div className="layoutOptions">
+        {layoutStyles.map((option) => (
+          <button
+            className={layoutStyle === option ? "active" : ""}
+            type="button"
+            aria-pressed={layoutStyle === option}
+            onClick={() => onLayoutStyleChange(option)}
+            key={option}
+          >
+            <span />
+            {option}
+          </button>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function DomainStep() {
+  return (
+    <>
+      <article className="flowPanel domainStep">
+        <h2>Domain & Hosting</h2>
+        <p>Connect your domain and choose a hosting plan.</p>
+        <label>Connect Existing Domain<div><input placeholder="yourdomain.com" /><button type="button"><ChevronRight size={15} /> Connect</button></div></label>
+        <div className="orLine"><span>or</span></div>
+        <div className="sslRow"><div><strong>SSL Certificate</strong><span>Secure your website with HTTPS</span></div><button type="button"><i /></button></div>
+      </article>
+      <section className="hostingPlans">
+        <h2>Hosting Plan</h2>
+        <div>
+          {[
+            ["Starter", "Free", "1GB storage", "10K visits/mo", "Subdomain only"],
+            ["Pro", "Rs 499/mo", "10 GB storage", "100K visits/mo", "Custom domain"],
+            ["Business", "Rs 1299/mo", "Unlimited storage", "Unlimited visits", "Priority support"],
+          ].map((plan, index) => (
+            <article className={index === 1 ? "active" : ""} key={plan[0]}>
+              <h3>{plan[0]}</h3>
+              <strong>{plan[1]}</strong>
+              {plan.slice(2).map((feature) => <p key={feature}><Check size={13} /> {feature}</p>)}
+              {index === 1 ? <Check className="planCheck" size={15} /> : null}
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function PublishStep({ onPublish }: { onPublish: () => void }) {
+  return (
+    <div className="publishWrap">
+      <article className="flowPanel publishStep">
+        <h2>Publish Your Website</h2>
+        <p>Review everything before going live.</p>
+        {readinessChecks.map((item) => (
+          <div className="readyRow" key={item.label}>
+            <item.icon size={16} />
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
+        ))}
+      </article>
+      <div className="publishActions">
+        <button type="button"><Eye size={15} /> Preview Live Site</button>
+        <button className="publishBtn" type="button" onClick={onPublish}><Globe2 size={15} /> Publish Website</button>
+      </div>
+    </div>
+  );
+}
+
+function PublishedStep() {
+  return (
+    <article className="publishedPanel">
+      <span><CheckCircle2 size={30} /></span>
+      <h2>Website Published!</h2>
+      <p>Your store is now live at yourbusiness.com</p>
+      <button type="button"><ExternalLink size={15} /> Open Live Website</button>
+    </article>
+  );
+}
+
+function TemplateLibrary({
+  compact = false,
+  selectedTemplate,
+  onTemplateSelect,
+}: {
+  compact?: boolean;
+  selectedTemplate: string;
+  onTemplateSelect: (template: string) => void;
+}) {
+  return (
+    <article className={compact ? "wbCard templateLibrary compact" : "templateLibrary"}>
+      {compact ? (
+        <div className="templateHead"><div><h2>Template Library</h2><p>Premium ecommerce templates for every category</p></div><button type="button"><Eye size={14} /> View All</button></div>
+      ) : null}
+      <div className="templateGrid">
+        {websiteTemplates.map((template) => (
+          <button
+            className={`templateCard ${template.tone} ${selectedTemplate === template.name ? "active" : ""}`}
+            type="button"
+            aria-pressed={selectedTemplate === template.name}
+            onClick={() => onTemplateSelect(template.name)}
+            key={template.name}
+          >
+            <div className="templatePreview"><span /><span /><span /><b /><i /><i /><i /></div>
+            <div><strong>{template.name}</strong><em>{template.tag}</em></div>
+            <p><span>Responsive</span> · <span>AI Optimized</span></p>
+          </button>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function StatusPanel() {
+  return (
+    <article className="wbCard statusPanel">
+      <h2>Website Status</h2>
+      {[
+        ["Domain Connected", "Active", Globe2],
+        ["SSL Certificate", "Secure", Lock],
+        ["Hosting Status", "Running", Server],
+        ["Website Speed", "94 / 100", Gauge],
+        ["SEO Health", "Needs Work", BarChart3],
+      ].map(([label, value, Icon], index) => (
+        <div className="statusRow" key={label as string}>
+          <Icon size={15} />
+          <span>{label as string}</span>
+          <strong className={index === 4 ? "warn" : ""}>{value as string}</strong>
+        </div>
+      ))}
+    </article>
+  );
+}
+
+function ProductPublishing() {
+  return (
+    <article className="wbCard productPublishing">
+      <div className="templateHead"><h2>Product Publishing</h2><button type="button"><Box size={14} /> View All</button></div>
+      {websiteProducts.slice(0, 4).map((product) => (
+        <div className="publishProduct" key={product.name}>
+          <div><strong>{product.name}</strong><span>Stock: {product.meta.split("· ")[1]?.replace(" in stock", "").replace("Out of stock", "Out of stock")}</span></div>
+          <em className={product.status.toLowerCase()}>{product.status}</em>
+        </div>
+      ))}
+      <button className="bulkBtn" type="button"><Upload size={13} /> Bulk Publish</button>
+    </article>
   );
 }

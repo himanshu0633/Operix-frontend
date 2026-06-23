@@ -3,7 +3,7 @@ import { Header } from "./header/Header";
 import { Sidebar } from "./sidebar/Sidebar";
 
 type AdminShellProps = {
-  activePage: "dashboard" | "products" | "suppliers" | "inventory" | "orders" | "customers";
+  activePage: "dashboard" | "products" | "suppliers" | "inventory" | "orders" | "customers" | "website";
   children: ReactNode;
 };
 

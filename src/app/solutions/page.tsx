@@ -1,15 +1,16 @@
 import Link from "next/link";
 import Header from "../landing/components/Header";
 import Footer from "../landing/components/Footer";
+import RoleSolutions from "./components/RoleSolutions";
 import "./solutions.css";
 import {
   ArrowRight,
   BarChart3,
   Briefcase,
   Building2,
+  CalendarDays,
   Calculator,
   Check,
-  CheckCircle2,
   Clock3,
   Factory,
   Gift,
@@ -17,7 +18,6 @@ import {
   Megaphone,
   Package,
   Rocket,
-  Settings,
   ShoppingBag,
   ShoppingCart,
   Store,
@@ -161,13 +161,6 @@ const lifecycle = [
   },
 ];
 
-const roleFeatures = [
-  "Unified P&L and cash flow dashboard",
-  "AI-powered growth forecasting",
-  "Team performance and workload view",
-  "Instant AI business insights",
-];
-
 const industryCards = [
   {
     icon: ShoppingBag,
@@ -267,25 +260,114 @@ const industryCards = [
   },
 ];
 
-const roleTabs = [
-  { icon: Briefcase, label: "Business Owner", active: true },
-  { icon: Settings, label: "Operations Manager" },
-  { icon: Warehouse, label: "Inventory Manager" },
-  { icon: TrendingIcon, label: "Sales Manager" },
-  { icon: Megaphone, label: "Marketing Manager" },
-  { icon: Calculator, label: "Accountant" },
-];
-
-function TrendingIcon({ size = 18 }: { size?: number }) {
-  return <BarChart3 size={size} />;
-}
-
 export default function SolutionsPage() {
   return (
     <div className="landing-page solutions-page">
       <Header />
       <main>
         <section className="solutions-hero">
+          <div className="lp-container solutions-hero-grid">
+            <div>
+              <span className="solutions-hero-badge"><i /> Solutions</span>
+              <h1>Built For <span>Every Growing</span> Business</h1>
+              <p>Whether you sell products, manage inventory, or run teams, the platform adapts to your workflow.</p>
+              <div className="solutions-actions hero-actions">
+                <Link href="#industry" className="solutions-primary-btn">
+                  Find Your Solution <ArrowRight size={18} />
+                </Link>
+                <Link href="#book-demo" className="solutions-outline-btn">Book Demo</Link>
+              </div>
+              <div className="solutions-trust-row hero-trust">
+                {["6 industry solutions", "Role-based access", "Custom workflows"].map((item) => (
+                  <span key={item}><Check size={14} /> {item}</span>
+                ))}
+              </div>
+            </div>
+            <div className="hero-industry-grid">
+              {industries.map(({ icon: Icon, label, caption, tone }) => (
+                <article className={tone} key={label}>
+                  <span><Icon size={24} /></span>
+                  <strong>{label}</strong>
+                  <small>{caption}</small>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="solutions-section industry-solutions-section">
+          <div className="lp-container">
+            <div className="solutions-heading">
+              <span className="teal-label">Industry Solutions</span>
+              <h2>Tailored For Your Industry</h2>
+              <p>Every industry has unique challenges. Operix is built to solve them all.</p>
+            </div>
+            <div className="industry-grid">
+              {industryCards.map(({ icon: Icon, title, subtitle, challenges, solves, tone }) => (
+                <article className={`industry-card ${tone}`} key={title}>
+                  <div className="industry-title">
+                    <span><Icon size={25} /></span>
+                    <div>
+                      <h3>{title}</h3>
+                      <p>{subtitle}</p>
+                    </div>
+                  </div>
+                  <h4>Common Challenges</h4>
+                  <ul className="problem-list">
+                    {challenges.map((challenge) => (
+                      <li key={challenge}><X size={14} /> {challenge}</li>
+                    ))}
+                  </ul>
+                  <h4 className="solve-heading">How Operix Solves It</h4>
+                  <ul className="solve-list">
+                    {solves.map((solve) => (
+                      <li key={solve}><Check size={14} /> {solve}</li>
+                    ))}
+                  </ul>
+                  <Link href="#industry" className="industry-link">
+                    View {title} Solution <ArrowRight size={16} />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="solutions-section role-section">
+          <div className="lp-container">
+            <div className="solutions-heading">
+              <span>Role-Based Solutions</span>
+              <h2>Built Around How You Work</h2>
+              <p>Every role gets the tools and data they need - without the noise they don't.</p>
+            </div>
+            <RoleSolutions />
+          </div>
+        </section>
+
+        <section className="solutions-section lifecycle-section">
+          <div className="lp-container">
+            <div className="solutions-heading">
+              <span>Business Lifecycle</span>
+              <h2>Your Complete Business Workflow</h2>
+              <p>Every stage of your business connected and automated - from supplier to sale.</p>
+            </div>
+            <div className="lifecycle-list">
+              {lifecycle.map(({ icon: Icon, step, label, title, text, stat, statText, tone }, index) => (
+                <article className={`lifecycle-item ${index % 2 === 0 ? "left" : "right"} ${tone}`} key={title}>
+                  <div className="lifecycle-card">
+                    <small><strong>{step}</strong> • {label}</small>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                    <span className="lifecycle-stat"><strong>{stat}</strong> {statText}</span>
+                  </div>
+                  <span className="lifecycle-icon"><Icon size={26} /></span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="solutions-cta-section">
           <div className="lp-container">
             <div className="solution-pills">
               {industries.map(({ icon: Icon, label, tone }) => (
@@ -294,23 +376,19 @@ export default function SolutionsPage() {
                 </span>
               ))}
             </div>
-            <h1>
-              Find The Right Solution <span>For Your Business</span>
-            </h1>
+            <h2>Find The Right Solution <span>For Your Business</span></h2>
             <p>Talk to our team and get a personalized demo tailored to your industry and workflow.</p>
-            <div className="solutions-actions">
+            <div className="solutions-actions cta-actions">
               <Link href="/admin/dashboard" className="solutions-primary-btn">
                 Start Free Trial <ArrowRight size={18} />
               </Link>
               <Link href="#book-demo" className="solutions-outline-btn">
-                <Calculator size={16} /> Book a Demo
+                <CalendarDays size={16} /> Book a Demo
               </Link>
             </div>
-            <div className="solutions-trust-row">
+            <div className="solutions-trust-row cta-trust">
               {["Industry-specific onboarding", "No credit card required", "Cancel anytime"].map((item) => (
-                <span key={item}>
-                  <CheckCircle2 size={15} /> {item}
-                </span>
+                <span key={item}><Check size={14} /> {item}</span>
               ))}
             </div>
           </div>
@@ -367,137 +445,6 @@ export default function SolutionsPage() {
           </div>
         </section>
 
-        <section className="solutions-section lifecycle-section">
-          <div className="lp-container">
-            <div className="solutions-heading">
-              <span>Business Lifecycle</span>
-              <h2>Your Complete Business Workflow</h2>
-              <p>Every stage of your business connected and automated - from supplier to sale.</p>
-            </div>
-            <div className="lifecycle-list">
-              {lifecycle.map(({ icon: Icon, step, label, title, text, stat, statText, tone }, index) => (
-                <article className={`lifecycle-item ${index % 2 === 0 ? "left" : "right"} ${tone}`} key={title}>
-                  <div className="lifecycle-card">
-                    <small><strong>{step}</strong> • {label}</small>
-                    <h3>{title}</h3>
-                    <p>{text}</p>
-                    <span className="lifecycle-stat"><strong>{stat}</strong> {statText}</span>
-                  </div>
-                  <span className="lifecycle-icon"><Icon size={26} /></span>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="solutions-section role-section">
-          <div className="lp-container">
-            <div className="solutions-heading">
-              <span>Role-Based Solutions</span>
-              <h2>Built Around How You Work</h2>
-              <p>Every role gets the tools and data they need - without the noise they don't.</p>
-            </div>
-            <div className="role-tabs">
-              {roleTabs.map(({ icon: Icon, label, active }) => (
-                <button className={active ? "active" : ""} key={label}>
-                  <Icon size={17} /> {label}
-                </button>
-              ))}
-            </div>
-            <div className="role-panel">
-              <div className="role-copy">
-                <span><Briefcase size={16} /> Business Owner</span>
-                <h3>Full Business Visibility in One Dashboard</h3>
-                <p>See revenue, operations, inventory, and team performance in real time - without asking anyone for a report.</p>
-                <div className="role-feature-list">
-                  {roleFeatures.map((feature) => (
-                    <div key={feature}>
-                      <BarChart3 size={16} /> {feature}
-                    </div>
-                  ))}
-                </div>
-                <Link href="#business-owner" className="role-link">
-                  Explore for Business Owner <ArrowRight size={16} />
-                </Link>
-              </div>
-              <div className="role-preview">
-                <div className="preview-top"><i /><i /><i /><span /></div>
-                <div className="preview-center">
-                  <Briefcase size={22} />
-                  <small>Business Owner Dashboard</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="solutions-section">
-          <div className="lp-container">
-            <div className="solutions-heading">
-              <span className="teal-label">Industry Solutions</span>
-              <h2>Tailored For Your Industry</h2>
-              <p>Every industry has unique challenges. Operix is built to solve them all.</p>
-            </div>
-            <div className="industry-grid">
-              {industryCards.map(({ icon: Icon, title, subtitle, challenges, solves, tone }) => (
-                <article className={`industry-card ${tone}`} key={title}>
-                  <div className="industry-title">
-                    <span><Icon size={25} /></span>
-                    <div>
-                      <h3>{title}</h3>
-                      <p>{subtitle}</p>
-                    </div>
-                  </div>
-                  <h4>Common Challenges</h4>
-                  <ul className="problem-list">
-                    {challenges.map((challenge) => (
-                      <li key={challenge}><X size={14} /> {challenge}</li>
-                    ))}
-                  </ul>
-                  <h4 className="solve-heading">How Operix Solves It</h4>
-                  <ul className="solve-list">
-                    {solves.map((solve) => (
-                      <li key={solve}><Check size={14} /> {solve}</li>
-                    ))}
-                  </ul>
-                  <Link href="#industry" className="industry-link">
-                    View {title} Solution <ArrowRight size={16} />
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="solutions-final">
-          <div className="lp-container solutions-final-grid">
-            <div>
-              <span className="final-badge"><i /> Solutions</span>
-              <h2>Built For <span>Every Growing</span> Business</h2>
-              <p>Whether you sell products, manage inventory, or run teams, the platform adapts to your workflow.</p>
-              <div className="solutions-actions final-actions">
-                <Link href="#industry" className="solutions-primary-btn">
-                  Find Your Solution <ArrowRight size={18} />
-                </Link>
-                <Link href="#book-demo" className="solutions-outline-btn">Book Demo</Link>
-              </div>
-              <div className="solutions-trust-row final-trust">
-                {["6 industry solutions", "Role-based access", "Custom workflows"].map((item) => (
-                  <span key={item}><Check size={14} /> {item}</span>
-                ))}
-              </div>
-            </div>
-            <div className="final-industry-grid">
-              {industries.map(({ icon: Icon, label, caption, tone }) => (
-                <article className={tone} key={label}>
-                  <span><Icon size={24} /></span>
-                  <strong>{label}</strong>
-                  <small>{caption}</small>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>
