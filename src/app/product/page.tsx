@@ -14,6 +14,7 @@ import {
   CalendarDays,
   CheckCircle2,
   CreditCard,
+  Database,
   FileText,
   Globe2,
   Megaphone,
@@ -131,11 +132,19 @@ const promptData = [
 ];
 
 const integrationNodes = [
-  { icon: CreditCard, title: "Payment", text: "Stripe, PayPal, Square", className: "payment" },
-  { icon: Truck, title: "Shipping", text: "FedEx, UPS, DHL", className: "shipping" },
-  { icon: Megaphone, title: "Marketing", text: "Mailchimp, Google, Meta", className: "marketing" },
-  { icon: MessageCircle, title: "Comms", text: "Slack, WhatsApp, Email", className: "comms" },
-  { icon: FileText, title: "Finance", text: "QuickBooks, Xero, MYOB", className: "finance" },
+  { icon: CreditCard, title: "Payment", text: "Stripe, PayPal, Square", className: "payment", tone: "blue" },
+  { icon: Truck, title: "Shipping", text: "FedEx, UPS, DHL", className: "shipping", tone: "teal" },
+  { icon: Megaphone, title: "Marketing", text: "Mailchimp, Google, Meta", className: "marketing", tone: "amber" },
+  { icon: MessageCircle, title: "Comms", text: "Slack, WhatsApp, Email", className: "comms", tone: "blue" },
+  { icon: FileText, title: "Finance", text: "QuickBooks, Xero, MYOB", className: "finance", tone: "teal" },
+];
+
+const integrationLinks = [
+  { x2: 280, y2: 70 },   // Payment (top)
+  { x2: 480, y2: 215 },  // Shipping (top-right)
+  { x2: 404, y2: 450 },  // Marketing (bottom-right)
+  { x2: 156, y2: 450 },  // Comms (bottom-left)
+  { x2: 80, y2: 215 }   // Finance (top-left)
 ];
 
 const workflowSteps = [
@@ -223,6 +232,8 @@ export default function ProductPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = workflowSteps[activeIndex];
   const ActiveIcon = activeStep.icon;
+
+  const [hoveredIntegrationIndex, setHoveredIntegrationIndex] = useState<number | null>(null);
 
   const [selectedPrompt, setSelectedPrompt] = useState(1);
   const [chatMessages, setChatMessages] = useState<{ sender: "user" | "assistant"; text: string; isTyping?: boolean }[]>([]);
@@ -497,21 +508,59 @@ export default function ProductPage() {
             <div className="integration-map" aria-label="Operix integrations ecosystem">
               <div className="integration-orbit orbit-one" />
               <div className="integration-orbit orbit-two" />
+              
+              {/* Dynamic SVG Connection Lines */}
+              <svg className="integration-lines-svg" viewBox="0 0 560 560">
+                {integrationLinks.map((link, idx) => {
+                  const targetNode = integrationNodes[idx];
+                  const dotColor = 
+                    targetNode.tone === "blue" ? "var(--product-blue)" : 
+                    targetNode.tone === "teal" ? "var(--product-teal)" : 
+                    "var(--product-amber)";
+                  return (
+                    <g key={idx}>
+                      <line
+                        x1="280"
+                        y1="280"
+                        x2={link.x2}
+                        y2={link.y2}
+                        className={`integration-line tone-${targetNode.tone}`}
+                      />
+                      <circle r="4.5" fill={dotColor}>
+                        <animate attributeName="cx" from="280" to={link.x2} dur="3s" begin={`${idx * 0.6}s`} repeatCount="indefinite" />
+                        <animate attributeName="cy" from="280" to={link.y2} dur="3s" begin={`${idx * 0.6}s`} repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.98;1" dur="3s" begin={`${idx * 0.6}s`} repeatCount="indefinite" />
+                      </circle>
+                    </g>
+                  );
+                })}
+              </svg>
+
               <div className="integration-core">
                 <span className="core-icon"><PackageCheck size={22} /></span>
                 <strong>Operix</strong>
               </div>
-              {integrationNodes.map(({ icon: Icon, title, text, className }) => (
-                <div className={`integration-card ${className}`} key={title}>
-                  <span><Icon size={22} /></span>
-                  <strong>{title}</strong>
-                  <small>{text}</small>
-                </div>
-              ))}
-              <div className="mini-node node-phone"><MessageCircle size={18} /></div>
-              <div className="mini-node node-mail"><Send size={16} /></div>
-              <div className="mini-node node-web"><Globe2 size={17} /></div>
+              
+              {integrationNodes.map(({ icon: Icon, title, text, className, tone }, idx) => {
+                const isActive = hoveredIntegrationIndex === idx;
+                return (
+                  <div
+                    className={`integration-card ${className} tone-${tone} ${isActive ? "active" : ""}`}
+                    key={title}
+                    onMouseEnter={() => setHoveredIntegrationIndex(idx)}
+                    onMouseLeave={() => setHoveredIntegrationIndex(null)}
+                  >
+                    <span><Icon size={22} /></span>
+                    <strong>{title}</strong>
+                    <small>{text}</small>
+                  </div>
+                );
+              })}
+              <div className="mini-node node-phone"><MessageCircle size={17} /></div>
               <div className="mini-node node-ai"><Bot size={17} /></div>
+              <div className="mini-node node-db"><Database size={16} /></div>
+              <div className="mini-node node-web"><Globe2 size={17} /></div>
+              <div className="mini-node node-mail"><Send size={16} /></div>
             </div>
           </div>
         </section>
