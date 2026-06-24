@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../landing/components/Header";
 import Footer from "../landing/components/Footer";
@@ -32,38 +32,101 @@ const moduleCards = [
   {
     icon: Box,
     title: "Product Management",
-    text: "Manage your complete catalog - variants, pricing, images, SEO, and performance analytics - all in one workspace.",
+    text: "Manage your complete catalog — variants, pricing, images, SEO, and performance analytics — all in one workspace.",
     tone: "blue",
+    features: [
+      "Unlimited SKUs with variant management",
+      "Bulk import/export via CSV or API",
+      "Supplier linking and cost tracking",
+      "Product performance dashboards",
+    ],
+    screenshotText: "PRODUCT MODULE SCREENSHOT",
+    exploreLink: "/admin/products",
   },
   {
     icon: Warehouse,
     title: "Inventory Control",
     text: "Real-time stock visibility across warehouses. Automate purchase orders, track movement, and prevent stockouts.",
     tone: "teal",
+    features: [
+      "Multi-location stock tracking",
+      "Automated reorder point alerts",
+      "Stock transfer between locations",
+      "FIFO/LIFO cost accounting",
+    ],
+    screenshotText: "INVENTORY MODULE SCREENSHOT",
+    exploreLink: "/admin/inventory",
   },
   {
     icon: ShoppingCart,
     title: "Order Management",
     text: "Centralized order hub for all channels. Process, fulfill, and ship orders with automated workflows.",
     tone: "blue",
+    features: [
+      "Unified order inbox (all channels)",
+      "Automated fulfillment routing",
+      "Shipping label generation",
+      "Returns and refund automation",
+    ],
+    screenshotText: "ORDERS MODULE SCREENSHOT",
+    exploreLink: "/admin/orders",
   },
   {
     icon: Users,
     title: "Customer Management",
     text: "Build rich customer profiles. Track lifetime value, segment audiences, and deliver personalized experiences.",
     tone: "teal",
+    features: [
+      "360° customer profiles",
+      "LTV and cohort analysis",
+      "Smart segmentation builder",
+      "Communication history timeline",
+    ],
+    screenshotText: "CUSTOMERS MODULE SCREENSHOT",
+    exploreLink: "/admin/customers",
   },
   {
     icon: Calculator,
     title: "Accounting",
     text: "Automated bookkeeping, real-time P&L, and tax-ready reports. No accountant required for day-to-day operations.",
     tone: "amber",
+    features: [
+      "Automated transaction categorization",
+      "Real-time P&L and balance sheet",
+      "Multi-currency support",
+      "Tax calculation and reporting",
+    ],
+    screenshotText: "ACCOUNTING MODULE SCREENSHOT",
+    exploreLink: "/admin/dashboard",
   },
   {
     icon: BarChart3,
     title: "Analytics & Reporting",
     text: "Business intelligence across every module. Identify trends, optimize performance, and make data-driven decisions.",
     tone: "blue",
+    features: [
+      "Cross-module data correlation",
+      "Custom report builder",
+      "Scheduled report distribution",
+      "AI-powered trend detection",
+    ],
+    screenshotText: "ANALYTICS MODULE SCREENSHOT",
+    exploreLink: "/admin/dashboard",
+  },
+];
+
+const promptData = [
+  {
+    prompt: "What was last month's profit?",
+    response: "Last month's net profit was $24,850, showing a 12% increase month-over-month. Gross margin remained steady at 64%.",
+  },
+  {
+    prompt: "Which products need restocking?",
+    response: "3 products are below reorder threshold: Running Shoes (12 units), Wireless Headphones (8 units), and Cotton T-Shirts (5 units). Purchase orders created automatically.",
+  },
+  {
+    prompt: "Who are my top customers?",
+    response: "Your top customers by lifetime value are: 1. Sarah Jenkins ($4,250), 2. Michael Chen ($3,890), and 3. David Rodriguez ($3,420). All have active loyalty status.",
   },
 ];
 
@@ -160,6 +223,58 @@ export default function ProductPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = workflowSteps[activeIndex];
   const ActiveIcon = activeStep.icon;
+
+  const [selectedPrompt, setSelectedPrompt] = useState(1);
+  const [chatMessages, setChatMessages] = useState<{ sender: "user" | "assistant"; text: string; isTyping?: boolean }[]>([]);
+
+  useEffect(() => {
+    let isCancelled = false;
+    setChatMessages([]);
+
+    const timer1 = setTimeout(() => {
+      if (isCancelled) return;
+      setChatMessages([
+        { sender: "user", text: promptData[selectedPrompt].prompt },
+        { sender: "assistant", text: "", isTyping: true },
+      ]);
+
+      const timer2 = setTimeout(() => {
+        if (isCancelled) return;
+        setChatMessages((prev) => [
+          prev[0],
+          { sender: "assistant", text: "", isTyping: false },
+        ]);
+
+        const responseText = promptData[selectedPrompt].response;
+        let currentIdx = 0;
+
+        const typingInterval = setInterval(() => {
+          if (isCancelled) {
+            clearInterval(typingInterval);
+            return;
+          }
+          currentIdx += 3;
+          if (currentIdx >= responseText.length) {
+            setChatMessages((prev) => [
+              prev[0],
+              { sender: "assistant", text: responseText, isTyping: false },
+            ]);
+            clearInterval(typingInterval);
+          } else {
+            setChatMessages((prev) => [
+              prev[0],
+              { sender: "assistant", text: responseText.slice(0, currentIdx), isTyping: false },
+            ]);
+          }
+        }, 20);
+      }, 1000);
+    }, 400);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer1);
+    };
+  }, [selectedPrompt]);
 
   return (
     <div className="landing-page product-page">
@@ -272,11 +387,25 @@ export default function ProductPage() {
               <p>Hover to explore the full depth of each module.</p>
             </div>
             <div className="module-grid">
-              {moduleCards.map(({ icon: Icon, title, text, tone }) => (
-                <article className="module-card" key={title}>
+              {moduleCards.map(({ icon: Icon, title, text, tone, features, screenshotText, exploreLink }) => (
+                <article className={`module-card tone-${tone}`} key={title}>
                   <span className={`module-icon ${tone}`}><Icon size={24} /></span>
                   <h3>{title}</h3>
                   <p>{text}</p>
+                  <div className="module-expanded-content">
+                    <ul className="module-features">
+                      {features.map((feature, fIdx) => (
+                        <li key={fIdx}>{feature}</li>
+                      ))}
+                    </ul>
+                    <div className="module-screenshot">
+                      <Icon size={20} />
+                      <span>{screenshotText}</span>
+                    </div>
+                    <Link href={exploreLink} className="module-explore-link">
+                      Explore {title} <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </article>
               ))}
             </div>
@@ -303,18 +432,51 @@ export default function ProductPage() {
                 <div className="window-dots"><i /><i /><i /></div>
               </div>
               <div className="ai-prompts">
-                <button>"What was last month's profit?"</button>
-                <button className="active">"Which products need restocking?"</button>
-                <button>"Who are my top customers?"</button>
+                {promptData.map((data, idx) => (
+                  <button
+                    key={idx}
+                    className={selectedPrompt === idx ? "active" : ""}
+                    onClick={() => setSelectedPrompt(idx)}
+                  >
+                    "{data.prompt}"
+                  </button>
+                ))}
               </div>
               <div className="ai-chat">
-                <div className="chat-bubble user">Which products need restocking?</div>
-                <div className="assistant-row">
-                  <span><Package size={17} /></span>
-                  <div className="chat-bubble assistant">
-                    3 products are below reorder threshold: Running Shoes (12 units), Wireless Headphones (8 units), and Cotton T-Shirts (5 units). Purchase orders created automatically.
-                  </div>
-                </div>
+                {chatMessages.map((msg, idx) => {
+                  if (msg.sender === "user") {
+                    return (
+                      <div key={idx} className="chat-bubble user message-fade-in">
+                        {msg.text}
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={idx} className="assistant-row message-fade-in">
+                        <span><Package size={17} /></span>
+                        <div className="chat-bubble assistant" style={{ position: "relative" }}>
+                          {/* Invisible full text placeholder to force parent to full height */}
+                          <span style={{ visibility: "hidden", display: "block" }}>
+                            {promptData[selectedPrompt].response}
+                          </span>
+                          {msg.isTyping ? (
+                            /* Absolute positioned typing indicator overlay */
+                            <div className="typing-indicator" style={{ position: "absolute", top: "16px", left: "19px" }}>
+                              <span />
+                              <span />
+                              <span />
+                            </div>
+                          ) : (
+                            /* Visible typing text overlay */
+                            <span style={{ position: "absolute", top: "16px", left: "19px", right: "19px", display: "block" }}>
+                              {msg.text}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
               </div>
               <div className="ai-input">
                 <span>Ask your business anything...</span>
