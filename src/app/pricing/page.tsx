@@ -156,15 +156,51 @@ const faqs = [
     answer:
       "Yes. Every plan comes with a 14-day free trial with full access to all features in that plan. No credit card is required to start - just sign up and explore.",
   },
-  { question: "Can I change my plan later?" },
-  { question: "What happens if I exceed my plan limits?" },
-  { question: "Do you offer discounts for annual billing?" },
-  { question: "Is there a setup fee?" },
-  { question: "Can I cancel anytime?" },
-  { question: "Is my business data secure?" },
-  { question: "Do you offer startup or nonprofit discounts?" },
-  { question: "What payment methods do you accept?" },
-  { question: "Can I white-label Operix for my clients?" },
+  {
+    question: "Can I change my plan later?",
+    answer:
+      "Yes, you can upgrade, downgrade, or cancel your plan at any time directly from your billing settings. Downgrades or cancellations will take effect at the end of the current billing cycle.",
+  },
+  {
+    question: "What happens if I exceed my plan limits?",
+    answer:
+      "If you approach your plan limits, we'll notify you. We won't automatically shut down your services, but you'll need to upgrade to the next tier or purchase add-ons to continue adding more items.",
+  },
+  {
+    question: "Do you offer discounts for annual billing?",
+    answer:
+      "Yes, we offer a 20% discount on all plans when billed annually. Choose the Annual option on the toggle above to apply the savings.",
+  },
+  {
+    question: "Is there a setup fee?",
+    answer:
+      "No. There are zero setup fees, implementation charges, or hidden fees. Our pricing is fully transparent.",
+  },
+  {
+    question: "Can I cancel anytime?",
+    answer:
+      "Yes, you can cancel your subscription at any time. Once cancelled, you will continue to have access to your workspace until the end of your current billing period.",
+  },
+  {
+    question: "Is my business data secure?",
+    answer:
+      "Absolutely. Your security is our priority. We use bank-grade 256-bit SSL encryption, secure hosting infrastructure, and perform regular automated backups to ensure your data is safe.",
+  },
+  {
+    question: "Do you offer startup or nonprofit discounts?",
+    answer:
+      "Yes, we offer custom discounts for qualified startups, educational institutions, and registered nonprofits. Contact our team to apply.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept all major credit cards including Visa, Mastercard, American Express, and Discover, as well as digital wallets like Google Pay and Apple Pay.",
+  },
+  {
+    question: "Can I white-label Operix for my clients?",
+    answer:
+      "Yes, our Enterprise plan includes white-labeling options, allowing you to custom brand the dashboards, client portals, and automated reports with your own logo and theme.",
+  },
 ];
 
 function CompareValue({ value, plan }: { value: string | boolean; plan: "starter" | "growth" | "enterprise" }) {
@@ -194,6 +230,7 @@ function CompareValue({ value, plan }: { value: string | boolean; plan: "starter
 export default function PricingPage() {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
   const [activePlan, setActivePlan] = useState<string>("Growth");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   return (
     <div className="landing-page pp-page">
@@ -364,15 +401,34 @@ export default function PricingPage() {
               <p>Everything you need to know before you start.</p>
             </div>
             <div className="pp-faq-list">
-              {faqs.map((faq, index) => (
-                <article className={`pp-faq-item ${index === 0 ? "open" : ""}`} key={faq.question}>
-                  <div className="pp-faq-question">
-                    <h3>{faq.question}</h3>
-                    <span>{index === 0 ? <Minus size={18} /> : <ChevronDown size={18} />}</span>
-                  </div>
-                  {faq.answer && <p>{faq.answer}</p>}
-                </article>
-              ))}
+              {faqs.map((faq, index) => {
+                const isOpen = openFaqIndex === index;
+                return (
+                  <article 
+                    className={`pp-faq-item ${isOpen ? "open" : ""}`} 
+                    key={faq.question}
+                  >
+                    <div 
+                      className="pp-faq-question"
+                      onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <h3>{faq.question}</h3>
+                      <span>
+                        <div className={`pp-faq-toggle-icon ${isOpen ? "open" : ""}`}>
+                          <span className="line-h" />
+                          <span className="line-v" />
+                        </div>
+                      </span>
+                    </div>
+                    <div className="pp-faq-answer-wrapper">
+                      <div className="pp-faq-answer-content">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>

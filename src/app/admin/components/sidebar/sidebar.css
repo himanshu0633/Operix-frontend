@@ -70,33 +70,80 @@
   letter-spacing: 0;
 }
 
-.navGroup a,
-.supportLink {
+.navGroup a {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 11px;
-  min-height: 34px;
+  gap: 12px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
   color: var(--secondary-text);
   text-decoration: none;
   font-size: 14px;
   line-height: 1;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 2px 0;
+}
+
+.supportLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  color: var(--secondary-text);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navGroup a svg,
 .supportLink svg {
   color: var(--secondary-text);
+  transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.navGroup a.active,
-.navGroup a:hover,
+/* Hover States */
+.navGroup a:hover {
+  color: #7584ff;
+  background: rgba(117, 132, 255, 0.04);
+}
+
+.navGroup a:hover svg {
+  color: #7584ff;
+}
+
 .supportLink:hover {
-  color: var(--ink);
+  color: #7584ff;
 }
 
-.navGroup a.active svg,
-.navGroup a:hover svg,
 .supportLink:hover svg {
-  color: var(--accent);
+  color: #7584ff;
+}
+
+/* Active State for Sidebar Items */
+.navGroup a.active {
+  color: #7584ff;
+  background: rgba(117, 132, 255, 0.1);
+  font-weight: 600;
+}
+
+.navGroup a.active svg {
+  color: #7584ff;
+}
+
+.navGroup a.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #7584ff;
+  border-radius: 10px 0 0 10px;
 }
 
 .sidebarFooter {

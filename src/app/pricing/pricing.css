@@ -676,7 +676,59 @@
   padding: 22px 25px;
   color: #b7c0cb;
   line-height: 1.7;
-  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.pp-faq-answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  border-top: 1px solid transparent;
+}
+
+.pp-faq-item.open .pp-faq-answer-wrapper {
+  grid-template-rows: 1fr;
+  border-top-color: rgba(148, 163, 184, 0.1);
+}
+
+.pp-faq-answer-content {
+  overflow: hidden;
+}
+
+/* Custom CSS plus-minus morphing icon */
+.pp-faq-toggle-icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pp-faq-toggle-icon .line-h,
+.pp-faq-toggle-icon .line-v {
+  position: absolute;
+  background-color: currentColor;
+  border-radius: 1px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.pp-faq-toggle-icon .line-h {
+  width: 12px;
+  height: 2px;
+}
+
+.pp-faq-toggle-icon .line-v {
+  width: 2px;
+  height: 12px;
+}
+
+.pp-faq-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.pp-faq-toggle-icon.open .line-v {
+  transform: rotate(90deg) scaleY(0);
 }
 
 .pp-final-cta {
