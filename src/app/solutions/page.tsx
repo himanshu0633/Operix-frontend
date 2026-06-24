@@ -2,6 +2,7 @@ import Link from "next/link";
 import Header from "../landing/components/Header";
 import Footer from "../landing/components/Footer";
 import RoleSolutions from "./components/RoleSolutions";
+import ScrollReveal from "../landing/components/ScrollReveal";
 import "./solutions.css";
 import {
   ArrowRight,
@@ -268,28 +269,40 @@ export default function SolutionsPage() {
         <section className="solutions-hero">
           <div className="lp-container solutions-hero-grid">
             <div>
-              <span className="solutions-hero-badge"><i /> Solutions</span>
-              <h1>Built For <span>Every Growing</span> Business</h1>
-              <p>Whether you sell products, manage inventory, or run teams, the platform adapts to your workflow.</p>
-              <div className="solutions-actions hero-actions">
-                <Link href="#industry" className="solutions-primary-btn">
-                  Find Your Solution <ArrowRight size={18} />
-                </Link>
-                <Link href="#book-demo" className="solutions-outline-btn">Book Demo</Link>
-              </div>
-              <div className="solutions-trust-row hero-trust">
-                {["6 industry solutions", "Role-based access", "Custom workflows"].map((item) => (
-                  <span key={item}><Check size={14} /> {item}</span>
-                ))}
-              </div>
+              <ScrollReveal animation="slide-up" duration={800} delay={100}>
+                <span className="solutions-hero-badge"><i /> Solutions</span>
+              </ScrollReveal>
+              <ScrollReveal animation="slide-up" duration={800} delay={180}>
+                <h1>Built For <span>Every Growing</span> Business</h1>
+              </ScrollReveal>
+              <ScrollReveal animation="slide-up" duration={800} delay={260}>
+                <p>Whether you sell products, manage inventory, or run teams, the platform adapts to your workflow.</p>
+              </ScrollReveal>
+              <ScrollReveal animation="slide-up" duration={800} delay={340}>
+                <div className="solutions-actions hero-actions">
+                  <Link href="#industry" className="solutions-primary-btn">
+                    Find Your Solution <ArrowRight size={18} />
+                  </Link>
+                  <Link href="#book-demo" className="solutions-outline-btn">Book Demo</Link>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal animation="fade-in" duration={800} delay={420}>
+                <div className="solutions-trust-row hero-trust">
+                  {["6 industry solutions", "Role-based access", "Custom workflows"].map((item) => (
+                    <span key={item}><Check size={14} /> {item}</span>
+                  ))}
+                </div>
+              </ScrollReveal>
             </div>
             <div className="hero-industry-grid">
-              {industries.map(({ icon: Icon, label, caption, tone }) => (
-                <article className={tone} key={label}>
-                  <span><Icon size={24} /></span>
-                  <strong>{label}</strong>
-                  <small>{caption}</small>
-                </article>
+              {industries.map(({ icon: Icon, label, caption, tone }, idx) => (
+                <ScrollReveal key={label} animation="slide-up" duration={800} delay={idx * 80}>
+                  <article className={tone}>
+                    <span><Icon size={24} /></span>
+                    <strong>{label}</strong>
+                    <small>{caption}</small>
+                  </article>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -297,37 +310,41 @@ export default function SolutionsPage() {
 
         <section className="solutions-section industry-solutions-section">
           <div className="lp-container">
-            <div className="solutions-heading">
-              <span className="teal-label">Industry Solutions</span>
-              <h2>Tailored For Your Industry</h2>
-              <p>Every industry has unique challenges. Operix is built to solve them all.</p>
-            </div>
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="solutions-heading">
+                <span className="teal-label">Industry Solutions</span>
+                <h2>Tailored For Your Industry</h2>
+                <p>Every industry has unique challenges. Operix is built to solve them all.</p>
+              </div>
+            </ScrollReveal>
             <div className="industry-grid">
-              {industryCards.map(({ icon: Icon, title, subtitle, challenges, solves, tone }) => (
-                <article className={`industry-card ${tone}`} key={title}>
-                  <div className="industry-title">
-                    <span><Icon size={25} /></span>
-                    <div>
-                      <h3>{title}</h3>
-                      <p>{subtitle}</p>
+              {industryCards.map(({ icon: Icon, title, subtitle, challenges, solves, tone }, idx) => (
+                <ScrollReveal key={title} animation="slide-up" duration={800} delay={idx * 100}>
+                  <article className={`industry-card ${tone}`}>
+                    <div className="industry-title">
+                      <span><Icon size={25} /></span>
+                      <div>
+                        <h3>{title}</h3>
+                        <p>{subtitle}</p>
+                      </div>
                     </div>
-                  </div>
-                  <h4>Common Challenges</h4>
-                  <ul className="problem-list">
-                    {challenges.map((challenge) => (
-                      <li key={challenge}><X size={14} /> {challenge}</li>
-                    ))}
-                  </ul>
-                  <h4 className="solve-heading">How Operix Solves It</h4>
-                  <ul className="solve-list">
-                    {solves.map((solve) => (
-                      <li key={solve}><Check size={14} /> {solve}</li>
-                    ))}
-                  </ul>
-                  <Link href="#industry" className="industry-link">
-                    View {title} Solution <ArrowRight size={16} />
-                  </Link>
-                </article>
+                    <h4>Common Challenges</h4>
+                    <ul className="problem-list">
+                      {challenges.map((challenge) => (
+                        <li key={challenge}><X size={14} /> {challenge}</li>
+                      ))}
+                    </ul>
+                    <h4 className="solve-heading">How Operix Solves It</h4>
+                    <ul className="solve-list">
+                      {solves.map((solve) => (
+                        <li key={solve}><Check size={14} /> {solve}</li>
+                      ))}
+                    </ul>
+                    <Link href="#industry" className="industry-link">
+                      View {title} Solution <ArrowRight size={16} />
+                    </Link>
+                  </article>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -335,111 +352,145 @@ export default function SolutionsPage() {
 
         <section className="solutions-section role-section">
           <div className="lp-container">
-            <div className="solutions-heading">
-              <span>Role-Based Solutions</span>
-              <h2>Built Around How You Work</h2>
-              <p>Every role gets the tools and data they need - without the noise they don't.</p>
-            </div>
-            <RoleSolutions />
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="solutions-heading">
+                <span>Role-Based Solutions</span>
+                <h2>Built Around How You Work</h2>
+                <p>Every role gets the tools and data they need - without the noise they don't.</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal animation="slide-up" duration={800} delay={150}>
+              <RoleSolutions />
+            </ScrollReveal>
           </div>
         </section>
 
         <section className="solutions-section lifecycle-section">
           <div className="lp-container">
-            <div className="solutions-heading">
-              <span>Business Lifecycle</span>
-              <h2>Your Complete Business Workflow</h2>
-              <p>Every stage of your business connected and automated - from supplier to sale.</p>
-            </div>
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="solutions-heading">
+                <span>Business Lifecycle</span>
+                <h2>Your Complete Business Workflow</h2>
+                <p>Every stage of your business connected and automated - from supplier to sale.</p>
+              </div>
+            </ScrollReveal>
             <div className="lifecycle-list">
-              {lifecycle.map(({ icon: Icon, step, label, title, text, stat, statText, tone }, index) => (
-                <article className={`lifecycle-item ${index % 2 === 0 ? "left" : "right"} ${tone}`} key={title}>
-                  <div className="lifecycle-card">
-                    <small><strong>{step}</strong> • {label}</small>
-                    <h3>{title}</h3>
-                    <p>{text}</p>
-                    <span className="lifecycle-stat"><strong>{stat}</strong> {statText}</span>
-                  </div>
-                  <span className="lifecycle-icon"><Icon size={26} /></span>
-                </article>
-              ))}
+              {lifecycle.map(({ icon: Icon, step, label, title, text, stat, statText, tone }, index) => {
+                const isLeft = index % 2 === 0;
+                return (
+                  <article className={`lifecycle-item ${isLeft ? "left" : "right"} ${tone}`} key={title}>
+                    <ScrollReveal
+                      animation={isLeft ? "slide-right" : "slide-left"}
+                      duration={800}
+                      className="lifecycle-card"
+                    >
+                      <small><strong>{step}</strong> • {label}</small>
+                      <h3>{title}</h3>
+                      <p>{text}</p>
+                      <span className="lifecycle-stat"><strong>{stat}</strong> {statText}</span>
+                    </ScrollReveal>
+                    <ScrollReveal
+                      animation="scale-up"
+                      duration={600}
+                      delay={150}
+                      className="lifecycle-icon"
+                    >
+                      <Icon size={26} />
+                    </ScrollReveal>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
 
         <section className="solutions-cta-section">
           <div className="lp-container">
-            <div className="solution-pills">
-              {industries.map(({ icon: Icon, label, tone }) => (
-                <span className={`solution-pill ${tone}`} key={label}>
-                  <Icon size={13} /> {label}
-                </span>
-              ))}
-            </div>
-            <h2>Find The Right Solution <span>For Your Business</span></h2>
-            <p>Talk to our team and get a personalized demo tailored to your industry and workflow.</p>
-            <div className="solutions-actions cta-actions">
-              <Link href="/admin/dashboard" className="solutions-primary-btn">
-                Start Free Trial <ArrowRight size={18} />
-              </Link>
-              <Link href="#book-demo" className="solutions-outline-btn">
-                <CalendarDays size={16} /> Book a Demo
-              </Link>
-            </div>
-            <div className="solutions-trust-row cta-trust">
-              {["Industry-specific onboarding", "No credit card required", "Cancel anytime"].map((item) => (
-                <span key={item}><Check size={14} /> {item}</span>
-              ))}
-            </div>
+            <ScrollReveal animation="slide-up" duration={800} delay={50}>
+              <div className="solution-pills">
+                {industries.map(({ icon: Icon, label, tone }) => (
+                  <span className={`solution-pill ${tone}`} key={label}>
+                    <Icon size={13} /> {label}
+                  </span>
+                ))}
+              </div>
+            </ScrollReveal>
+            <ScrollReveal animation="slide-up" duration={800} delay={150}>
+              <h2>Find The Right Solution <span>For Your Business</span></h2>
+            </ScrollReveal>
+            <ScrollReveal animation="slide-up" duration={800} delay={250}>
+              <p>Talk to our team and get a personalized demo tailored to your industry and workflow.</p>
+            </ScrollReveal>
+            <ScrollReveal animation="slide-up" duration={800} delay={350}>
+              <div className="solutions-actions cta-actions">
+                <Link href="/admin/dashboard" className="solutions-primary-btn">
+                  Start Free Trial <ArrowRight size={18} />
+                </Link>
+                <Link href="#book-demo" className="solutions-outline-btn">
+                  <CalendarDays size={16} /> Book a Demo
+                </Link>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal animation="fade-in" duration={800} delay={450}>
+              <div className="solutions-trust-row cta-trust">
+                {["Industry-specific onboarding", "No credit card required", "Cancel anytime"].map((item) => (
+                  <span key={item}><Check size={14} /> {item}</span>
+                ))}
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
         <section className="solutions-section">
           <div className="lp-container">
-            <div className="solutions-heading">
-              <span>Case Studies</span>
-              <h2>Real Results From Real Businesses</h2>
-              <p>See how growing businesses transformed their operations with Operix.</p>
-            </div>
+            <ScrollReveal animation="slide-up" duration={800}>
+              <div className="solutions-heading">
+                <span>Case Studies</span>
+                <h2>Real Results From Real Businesses</h2>
+                <p>See how growing businesses transformed their operations with Operix.</p>
+              </div>
+            </ScrollReveal>
             <div className="case-study-grid">
-              {caseStudies.map((study) => (
-                <article className={`case-card ${study.tone}`} key={study.name}>
-                  <div className="case-chart">
-                    <span className="case-avatar">{study.initials}</span>
-                    <div className="case-bars">
-                      {Array.from({ length: 12 }).map((_, index) => (
-                        <i key={index} style={{ height: `${24 + ((index * 7) % 38)}px` }} />
-                      ))}
+              {caseStudies.map((study, idx) => (
+                <ScrollReveal key={study.name} animation="slide-up" duration={800} delay={idx * 150}>
+                  <article className={`case-card ${study.tone}`}>
+                    <div className="case-chart">
+                      <span className="case-avatar">{study.initials}</span>
+                      <div className="case-bars">
+                        {Array.from({ length: 12 }).map((_, index) => (
+                          <i key={index} style={{ height: `${24 + ((index * 7) % 38)}px` }} />
+                        ))}
+                      </div>
+                      <small>{study.name} Dashboard</small>
                     </div>
-                    <small>{study.name} Dashboard</small>
-                  </div>
-                  <div className="case-body">
-                    <h3>{study.name}</h3>
-                    <div className="case-meta">
-                      <span>{study.tag}</span>
-                      <small>{study.location}</small>
+                    <div className="case-body">
+                      <h3>{study.name}</h3>
+                      <div className="case-meta">
+                        <span>{study.tag}</span>
+                        <small>{study.location}</small>
+                      </div>
+                      <div className="case-metrics">
+                        {study.metrics.map(([value, label, sub]) => (
+                          <div key={label}>
+                            <BarChart3 size={18} />
+                            <strong>{value}</strong>
+                            <span>{label}</span>
+                            <small>{sub}</small>
+                          </div>
+                        ))}
+                      </div>
+                      <blockquote>
+                        <Gift size={18} />
+                        <p>"{study.quote}"</p>
+                        <cite>{study.person}</cite>
+                        <small>{study.role}</small>
+                      </blockquote>
+                      <Link href="#case-study" className="case-link">
+                        Read {study.name} Story <ArrowRight size={16} />
+                      </Link>
                     </div>
-                    <div className="case-metrics">
-                      {study.metrics.map(([value, label, sub]) => (
-                        <div key={label}>
-                          <BarChart3 size={18} />
-                          <strong>{value}</strong>
-                          <span>{label}</span>
-                          <small>{sub}</small>
-                        </div>
-                      ))}
-                    </div>
-                    <blockquote>
-                      <Gift size={18} />
-                      <p>"{study.quote}"</p>
-                      <cite>{study.person}</cite>
-                      <small>{study.role}</small>
-                    </blockquote>
-                    <Link href="#case-study" className="case-link">
-                      Read {study.name} Story <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                </article>
+                  </article>
+                </ScrollReveal>
               ))}
             </div>
           </div>

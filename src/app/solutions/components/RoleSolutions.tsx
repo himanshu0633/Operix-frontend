@@ -172,7 +172,7 @@ export default function RoleSolutions() {
         })}
       </div>
 
-      <div className={`role-panel ${activeRole.tone}`}>
+      <div key={activeRole.label} className={`role-panel ${activeRole.tone} role-panel-animate`}>
         <div className="role-copy">
           <span>
             <ActiveIcon size={16} /> {activeRole.label}
