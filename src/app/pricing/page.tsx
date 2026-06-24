@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Header from "../landing/components/Header";
 import Footer from "../landing/components/Footer";
 import "./pricing.css";
@@ -24,9 +26,10 @@ const plans = [
   {
     name: "Starter",
     description: "For new and small businesses getting started.",
-    price: "$49",
-    suffix: "/mo",
-    billing: "Billed monthly",
+    prices: {
+      monthly: { price: "$49", suffix: "/mo", billing: "Billed monthly" },
+      annual: { price: "$39", suffix: "/mo", billing: "Billed annually ($468/yr)" },
+    },
     limits: ["Up to 3 members", "500 products", "1,000 orders/mo", "5 GB storage"],
     features: [
       "Product & inventory management",
@@ -43,9 +46,10 @@ const plans = [
   {
     name: "Growth",
     description: "Everything you need to scale operations and revenue.",
-    price: "$149",
-    suffix: "/mo",
-    billing: "Billed monthly",
+    prices: {
+      monthly: { price: "$149", suffix: "/mo", billing: "Billed monthly" },
+      annual: { price: "$119", suffix: "/mo", billing: "Billed annually ($1428/yr)" },
+    },
     limits: ["Up to 15 members", "Unlimited products", "Unlimited orders", "50 GB storage"],
     features: [
       "Everything in Starter",
@@ -64,9 +68,10 @@ const plans = [
   {
     name: "Enterprise",
     description: "Tailored for complex, multi-entity organizations.",
-    price: "Custom",
-    suffix: "",
-    billing: "Contact us for a tailored quote",
+    prices: {
+      monthly: { price: "Custom", suffix: "", billing: "Contact us for a tailored quote" },
+      annual: { price: "Custom", suffix: "", billing: "Contact us for a tailored quote" },
+    },
     limits: ["Unlimited members", "Unlimited products", "Unlimited orders", "Custom storage"],
     features: [
       "Everything in Growth",
@@ -125,7 +130,7 @@ const compareSections = [
   {
     category: "Intelligence",
     rows: [
-      ["Analytics Dashboard", "Basic", "Advanced", "Advanced + Custom BI"],
+      ["Page Analytics", "Basic", "Advanced", "Advanced + Custom BI"],
       ["Custom Reports", "—", true, true],
       ["Scheduled Reports", "—", "—", true],
       ["AI Business Assistant", "—", true, true],
@@ -187,6 +192,9 @@ function CompareValue({ value, plan }: { value: string | boolean; plan: "starter
 }
 
 export default function PricingPage() {
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
+  const [activePlan, setActivePlan] = useState<string>("Growth");
+
   return (
     <div className="landing-page pp-page">
       <Header />
@@ -212,38 +220,56 @@ export default function PricingPage() {
         <section className="pp-plans-section">
           <div className="lp-container">
             <div className="pp-toggle" aria-label="Billing period">
-              <button className="active">Monthly</button>
-              <button>Annual <span>Save 20%</span></button>
+              <button 
+                className={billingPeriod === "monthly" ? "active" : ""}
+                onClick={() => setBillingPeriod("monthly")}
+              >
+                Monthly
+              </button>
+              <button 
+                className={billingPeriod === "annual" ? "active" : ""}
+                onClick={() => setBillingPeriod("annual")}
+              >
+                Annual <span>Save 20%</span>
+              </button>
             </div>
             <div className="pp-plan-grid">
-              {plans.map((plan) => (
-                <article className={`pp-plan-card ${plan.featured ? "featured" : ""}`} key={plan.name}>
-                  <div className="pp-plan-top">
-                    <h2>{plan.name}</h2>
-                    {plan.featured && <span className="pp-popular"><Zap size={13} /> Most Popular</span>}
-                  </div>
-                  <p>{plan.description}</p>
-                  <div className="pp-price">
-                    {plan.price.startsWith("$") && <small>$</small>}
-                    <strong>{plan.price.replace("$", "")}</strong>
-                    {plan.suffix && <span>{plan.suffix}</span>}
-                  </div>
-                  <small className="pp-billing">{plan.billing}</small>
-                  <div className="pp-limits">
-                    {plan.limits.map((limit) => <span key={limit}>{limit}</span>)}
-                  </div>
-                  <ul className="pp-feature-list">
-                    {plan.features.map((feature) => (
-                      <li key={feature}><Check size={14} /> {feature}</li>
-                    ))}
-                  </ul>
-                  <Link href={plan.enterprise ? "#contact-sales" : "/admin/dashboard"} className="pp-plan-cta">
-                    {plan.enterprise && <Phone size={16} />}
-                    {plan.cta}
-                    {!plan.enterprise && <ArrowRight size={17} />}
-                  </Link>
-                </article>
-              ))}
+              {plans.map((plan) => {
+                const planPrice = plan.prices[billingPeriod];
+                const isActive = plan.name === activePlan;
+                return (
+                  <article 
+                    className={`pp-plan-card ${isActive ? "featured" : ""}`} 
+                    key={plan.name}
+                    onClick={() => setActivePlan(plan.name)}
+                  >
+                    <div className="pp-plan-top">
+                      <h2>{plan.name}</h2>
+                      {plan.featured && <span className="pp-popular"><Zap size={13} /> Most Popular</span>}
+                    </div>
+                    <p>{plan.description}</p>
+                    <div className="pp-price">
+                      {planPrice.price.startsWith("$") && <small>$</small>}
+                      <strong>{planPrice.price.replace("$", "")}</strong>
+                      {planPrice.suffix && <span>{planPrice.suffix}</span>}
+                    </div>
+                    <small className="pp-billing">{planPrice.billing}</small>
+                    <div className="pp-limits">
+                      {plan.limits.map((limit) => <span key={limit}>{limit}</span>)}
+                    </div>
+                    <ul className="pp-feature-list">
+                      {plan.features.map((feature) => (
+                        <li key={feature}><Check size={14} /> {feature}</li>
+                      ))}
+                    </ul>
+                    <Link href={plan.enterprise ? "#contact-sales" : "/admin/dashboard"} className="pp-plan-cta">
+                      {plan.enterprise && <Phone size={16} />}
+                      {plan.cta}
+                      {!plan.enterprise && <ArrowRight size={17} />}
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
             <p className="pp-plan-note">All plans include a 14-day free trial. No credit card required. Cancel anytime.</p>
           </div>
