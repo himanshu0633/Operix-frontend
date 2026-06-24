@@ -378,26 +378,23 @@ export default function SolutionsPage() {
               {lifecycle.map(({ icon: Icon, step, label, title, text, stat, statText, tone }, index) => {
                 const isLeft = index % 2 === 0;
                 return (
-                  <article className={`lifecycle-item ${isLeft ? "left" : "right"} ${tone}`} key={title}>
-                    <ScrollReveal
-                      animation={isLeft ? "slide-right" : "slide-left"}
-                      duration={800}
-                      className="lifecycle-card"
-                    >
+                  <ScrollReveal
+                    key={title}
+                    animation={isLeft ? "slide-right" : "slide-left"}
+                    duration={800}
+                    delay={index * 120}
+                    className={`lifecycle-item ${isLeft ? "left" : "right"} ${tone}`}
+                  >
+                    <div className="lifecycle-card">
                       <small><strong>{step}</strong> • {label}</small>
                       <h3>{title}</h3>
                       <p>{text}</p>
                       <span className="lifecycle-stat"><strong>{stat}</strong> {statText}</span>
-                    </ScrollReveal>
-                    <ScrollReveal
-                      animation="scale-up"
-                      duration={600}
-                      delay={150}
-                      className="lifecycle-icon"
-                    >
+                    </div>
+                    <div className="lifecycle-icon">
                       <Icon size={26} />
-                    </ScrollReveal>
-                  </article>
+                    </div>
+                  </ScrollReveal>
                 );
               })}
             </div>
