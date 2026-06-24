@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Header from "../landing/components/Header";
 import Footer from "../landing/components/Footer";
@@ -73,14 +76,62 @@ const integrationNodes = [
 ];
 
 const workflowSteps = [
-  { icon: Box, label: "Add Products" },
-  { icon: Warehouse, label: "Receive Inventory" },
-  { icon: Globe2, label: "Publish Website" },
-  { icon: Send, label: "Launch Marketing" },
-  { icon: ShoppingCart, label: "Receive Orders" },
-  { icon: Users, label: "Manage Customers", active: true },
-  { icon: Calculator, label: "Track Finances" },
-  { icon: TrendingUp, label: "Analyze Growth" },
+  {
+    icon: Box,
+    label: "Add Products",
+    number: "01",
+    tone: "blue",
+    description: "Import your catalog, set up variants, pricing, and images. Organize into categories and collections ready for selling.",
+  },
+  {
+    icon: Warehouse,
+    label: "Receive Inventory",
+    number: "02",
+    tone: "teal",
+    description: "Log stock arrivals from suppliers, set reorder thresholds, and let Operix track stock levels automatically across all channels.",
+  },
+  {
+    icon: Globe2,
+    label: "Publish Website",
+    number: "03",
+    tone: "blue",
+    description: "Use the AI website builder to generate your storefront in minutes. Connect products, customize layout, and publish live.",
+  },
+  {
+    icon: Send,
+    label: "Launch Marketing",
+    number: "04",
+    tone: "amber",
+    description: "Create AI-generated campaigns, schedule email sequences, run ads, and track performance — all from one dashboard.",
+  },
+  {
+    icon: ShoppingCart,
+    label: "Receive Orders",
+    number: "05",
+    tone: "blue",
+    description: "Orders flow in from your website, marketplaces, and sales reps into a unified order hub. Process, fulfill, and ship effortlessly.",
+  },
+  {
+    icon: Users,
+    label: "Manage Customers",
+    number: "06",
+    tone: "teal",
+    description: "Build rich customer profiles with full purchase history, preferences, and communications. Segment and engage with precision.",
+  },
+  {
+    icon: Calculator,
+    label: "Track Finances",
+    number: "07",
+    tone: "amber",
+    description: "Every transaction is automatically categorized. View real-time P&L, cash flow, and prepare tax reports without manual effort.",
+  },
+  {
+    icon: TrendingUp,
+    label: "Analyze Growth",
+    number: "08",
+    tone: "blue",
+    description: "Deep analytics across every module. Understand what drives revenue, where you lose margin, and where to focus next.",
+  },
 ];
 
 const heroNodes = [
@@ -106,6 +157,10 @@ const heroDots = [
 ];
 
 export default function ProductPage() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeStep = workflowSteps[activeIndex];
+  const ActiveIcon = activeStep.icon;
+
   return (
     <div className="landing-page product-page">
       <Header />
@@ -173,21 +228,38 @@ export default function ProductPage() {
               <p>Eight steps to a fully operational business - in one platform.</p>
             </div>
             <div className="workflow-track">
-              {workflowSteps.map(({ icon: Icon, label, active }) => (
-                <div className={`workflow-step ${active ? "active" : ""}`} key={label}>
-                  <span><Icon size={22} /></span>
-                  <small>{label}</small>
-                </div>
-              ))}
+              <div className="workflow-line-bg" />
+              <div
+                className={`workflow-line-active tone-${activeStep.tone}`}
+                style={{ width: `calc(${(activeIndex / 7) * 87.5}%)` }}
+              />
+              {workflowSteps.map((step, idx) => {
+                const StepIcon = step.icon;
+                const isActive = idx === activeIndex;
+                return (
+                  <div
+                    className={`workflow-step ${isActive ? "active" : ""} tone-${step.tone}`}
+                    key={step.label}
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <span><StepIcon size={22} /></span>
+                    <small>{step.label}</small>
+                  </div>
+                );
+              })}
             </div>
-            <div className="workflow-detail">
-              <span className="detail-icon"><Users size={34} /></span>
+            <div
+              key={activeIndex}
+              className={`workflow-detail tone-${activeStep.tone} workflow-detail-animate`}
+            >
+              <span className="detail-icon"><ActiveIcon size={34} /></span>
               <div>
-                <small>Step 6</small>
-                <h3>Manage Customers</h3>
-                <p>Build rich customer profiles with full purchase history, preferences, and communications. Segment and engage with precision.</p>
+                <small>Step {activeIndex + 1}</small>
+                <h3>{activeStep.label}</h3>
+                <p>{activeStep.description}</p>
               </div>
-              <strong>06</strong>
+              <strong>{activeStep.number}</strong>
             </div>
           </div>
         </section>
