@@ -94,6 +94,17 @@ const heroNodes = [
   { icon: BarChart3, label: "Analytics", className: "hero-node-analytics" },
 ];
 
+const heroDots = [
+  { className: "dot-products", tone: "blue" },
+  { className: "dot-inventory", tone: "teal" },
+  { className: "dot-website", tone: "blue" },
+  { className: "dot-marketing", tone: "amber" },
+  { className: "dot-orders", tone: "blue" },
+  { className: "dot-customers", tone: "teal" },
+  { className: "dot-accounting", tone: "amber" },
+  { className: "dot-analytics", tone: "blue" },
+];
+
 export default function ProductPage() {
   return (
     <div className="landing-page product-page">
@@ -139,6 +150,15 @@ export default function ProductPage() {
                 <div className={`product-hero-node ${className}`} key={label}>
                   <span><Icon size={21} /></span>
                   <strong>{label}</strong>
+                </div>
+              ))}
+              {heroDots.map(({ className, tone }) => (
+                <div className={`visual-dot ${className} tone-${tone}`} key={className}>
+                  <span className="visual-particle visual-particle-one" />
+                  <span className="visual-particle visual-particle-two" />
+                  <span className="visual-particle visual-particle-three" />
+                  <span className="visual-particle visual-particle-four" />
+                  <span className="visual-particle visual-particle-five" />
                 </div>
               ))}
             </div>

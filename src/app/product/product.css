@@ -103,6 +103,7 @@
   gap: 10px;
   font-size: 16px;
   font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .product-primary-btn {
@@ -113,13 +114,20 @@
 
 .product-primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 42px rgba(101, 115, 243, 0.4);
+  box-shadow: 0 20px 48px rgba(101, 115, 243, 0.52), 0 0 30px rgba(135, 146, 255, 0.35);
 }
 
 .product-outline-btn {
   color: #f4f6fb;
   border: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(255, 255, 255, 0.035);
+}
+
+.product-outline-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.05);
 }
 
 .product-trust-row {
@@ -276,6 +284,202 @@
 .hero-node-customers { left: 21%; top: 79%; }
 .hero-node-accounting { left: 9%; top: 49%; }
 .hero-node-analytics { left: 21%; top: 20%; }
+
+/* Visual Dots (Glowing indicators on radial lines/orbits) */
+.visual-dot {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.visual-particle {
+  position: absolute;
+  left: var(--dot-start-x);
+  top: var(--dot-start-y);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--dot-color);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.55);
+  box-shadow: 0 0 6px var(--dot-glow);
+  animation: dot-travel var(--dot-cycle, 12s) infinite linear;
+}
+
+.visual-particle-two {
+  animation-delay: var(--dot-step-one);
+}
+
+.visual-particle-three {
+  animation-delay: var(--dot-step-two);
+}
+
+.visual-particle-four {
+  animation-delay: var(--dot-step-three);
+}
+
+.visual-particle-five {
+  animation-delay: var(--dot-step-four);
+}
+
+.visual-dot.tone-blue {
+  --dot-color: #7482ff;
+  --dot-glow: rgba(116, 130, 255, 0.86);
+  --dot-glow-soft: rgba(116, 130, 255, 0.36);
+}
+
+.visual-dot.tone-teal {
+  --dot-color: #45e0cf;
+  --dot-glow: rgba(69, 224, 207, 0.86);
+  --dot-glow-soft: rgba(69, 224, 207, 0.36);
+}
+
+.visual-dot.tone-amber {
+  --dot-color: #e3a83f;
+  --dot-glow: rgba(227, 168, 63, 0.86);
+  --dot-glow-soft: rgba(227, 168, 63, 0.36);
+}
+
+@keyframes dot-travel {
+  0% {
+    left: var(--dot-start-x);
+    top: var(--dot-start-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.55);
+    box-shadow: 0 0 6px var(--dot-glow);
+  }
+  3% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 0 12px var(--dot-glow), 0 0 24px var(--dot-glow-soft);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 16px var(--dot-glow), 0 0 34px var(--dot-glow-soft);
+  }
+  25% {
+    left: var(--dot-x);
+    top: var(--dot-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.22);
+    box-shadow: 0 0 16px var(--dot-glow), 0 0 34px var(--dot-glow-soft);
+  }
+  30% {
+    left: var(--dot-x);
+    top: var(--dot-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.35);
+    box-shadow: 0 0 20px var(--dot-glow), 0 0 44px var(--dot-glow-soft);
+  }
+  100% {
+    left: var(--dot-x);
+    top: var(--dot-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.35);
+    box-shadow: 0 0 20px var(--dot-glow), 0 0 44px var(--dot-glow-soft);
+  }
+}
+
+.dot-products {
+  --dot-start-x: 50%;
+  --dot-start-y: 41.3%;
+  --dot-x: 50%;
+  --dot-y: 13.8%;
+  --dot-cycle: 11.2s;
+  --dot-step-one: 2.24s;
+  --dot-step-two: 4.48s;
+  --dot-step-three: 6.72s;
+  --dot-step-four: 8.96s;
+}
+
+.dot-inventory {
+  --dot-start-x: 56.1%;
+  --dot-start-y: 43.8%;
+  --dot-x: 75%;
+  --dot-y: 24.1%;
+  --dot-cycle: 12.8s;
+  --dot-step-one: 2.56s;
+  --dot-step-two: 5.12s;
+  --dot-step-three: 7.68s;
+  --dot-step-four: 10.24s;
+}
+
+.dot-website {
+  --dot-start-x: 58.7%;
+  --dot-start-y: 49.8%;
+  --dot-x: 85.3%;
+  --dot-y: 49.1%;
+  --dot-cycle: 10.2s;
+  --dot-step-one: 2.04s;
+  --dot-step-two: 4.08s;
+  --dot-step-three: 6.12s;
+  --dot-step-four: 8.16s;
+}
+
+.dot-marketing {
+  --dot-start-x: 56.2%;
+  --dot-start-y: 56.2%;
+  --dot-x: 74.9%;
+  --dot-y: 74.9%;
+  --dot-cycle: 14s;
+  --dot-step-one: 2.8s;
+  --dot-step-two: 5.6s;
+  --dot-step-three: 8.4s;
+  --dot-step-four: 11.2s;
+}
+
+.dot-orders {
+  --dot-start-x: 50%;
+  --dot-start-y: 58.7%;
+  --dot-x: 50%;
+  --dot-y: 86.2%;
+  --dot-cycle: 11.8s;
+  --dot-step-one: 2.36s;
+  --dot-step-two: 4.72s;
+  --dot-step-three: 7.08s;
+  --dot-step-four: 9.44s;
+}
+
+.dot-customers {
+  --dot-start-x: 43.8%;
+  --dot-start-y: 56.2%;
+  --dot-x: 25.1%;
+  --dot-y: 74.9%;
+  --dot-cycle: 13.2s;
+  --dot-step-one: 2.64s;
+  --dot-step-two: 5.28s;
+  --dot-step-three: 7.92s;
+  --dot-step-four: 10.56s;
+}
+
+.dot-accounting {
+  --dot-start-x: 41.3%;
+  --dot-start-y: 49.8%;
+  --dot-x: 14.7%;
+  --dot-y: 49.1%;
+  --dot-cycle: 10.6s;
+  --dot-step-one: 2.12s;
+  --dot-step-two: 4.24s;
+  --dot-step-three: 6.36s;
+  --dot-step-four: 8.48s;
+}
+
+.dot-analytics {
+  --dot-start-x: 43.9%;
+  --dot-start-y: 43.8%;
+  --dot-x: 25%;
+  --dot-y: 24.1%;
+  --dot-cycle: 12.4s;
+  --dot-step-one: 2.48s;
+  --dot-step-two: 4.96s;
+  --dot-step-three: 7.44s;
+  --dot-step-four: 9.92s;
+}
 
 .product-section {
   padding: 82px 0;
