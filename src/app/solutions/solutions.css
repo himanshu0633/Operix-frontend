@@ -199,6 +199,8 @@
   background: var(--solutions-panel);
   border: 1px solid var(--solutions-border);
   box-shadow: 0 22px 52px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
 .hero-industry-grid article span {
@@ -209,6 +211,7 @@
   border-radius: 12px;
   background: rgba(117, 132, 255, 0.12);
   border: 1px solid rgba(117, 132, 255, 0.24);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-industry-grid article.teal span {
@@ -224,10 +227,67 @@
 .hero-industry-grid article strong {
   color: #f7f8fb;
   font-size: 15px;
+  transition: color 0.3s ease;
 }
 
 .hero-industry-grid article small {
   color: #7f8998;
+  transition: color 0.3s ease;
+}
+
+/* Hover States */
+.hero-industry-grid article:hover {
+  background: var(--solutions-panel-2);
+}
+
+.hero-industry-grid article:hover strong {
+  color: #ffffff;
+}
+
+.hero-industry-grid article:hover small {
+  color: #aeb6c2;
+}
+
+/* Blue tone hover effect (Retail, D2C Brands, Agencies) */
+.hero-industry-grid article.blue:hover {
+  border-color: rgba(117, 132, 255, 0.45);
+  box-shadow: 
+    0 12px 30px -10px rgba(0, 0, 0, 0.5), 
+    0 0 24px rgba(117, 132, 255, 0.18);
+}
+
+.hero-industry-grid article.blue:hover span {
+  background: rgba(117, 132, 255, 0.24);
+  border-color: rgba(117, 132, 255, 0.55);
+  box-shadow: 0 0 15px rgba(117, 132, 255, 0.35);
+}
+
+/* Teal tone hover effect (Wholesale, Distributors) */
+.hero-industry-grid article.teal:hover {
+  border-color: rgba(85, 216, 197, 0.45);
+  box-shadow: 
+    0 12px 30px -10px rgba(0, 0, 0, 0.5), 
+    0 0 24px rgba(85, 216, 197, 0.18);
+}
+
+.hero-industry-grid article.teal:hover span {
+  background: rgba(85, 216, 197, 0.24);
+  border-color: rgba(85, 216, 197, 0.55);
+  box-shadow: 0 0 15px rgba(85, 216, 197, 0.35);
+}
+
+/* Amber tone hover effect (Manufacturing) */
+.hero-industry-grid article.amber:hover {
+  border-color: rgba(227, 173, 69, 0.45);
+  box-shadow: 
+    0 12px 30px -10px rgba(0, 0, 0, 0.5), 
+    0 0 24px rgba(227, 173, 69, 0.18);
+}
+
+.hero-industry-grid article.amber:hover span {
+  background: rgba(227, 173, 69, 0.24);
+  border-color: rgba(227, 173, 69, 0.55);
+  box-shadow: 0 0 15px rgba(227, 173, 69, 0.35);
 }
 
 .solutions-section {
@@ -495,6 +555,7 @@
   border: 1px solid rgba(148, 163, 184, 0.14);
   font-size: 14px;
   font-weight: 800;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lifecycle-section {
@@ -1292,6 +1353,8 @@
   padding: 31px 30px 28px;
   border-radius: 18px;
   border-top-color: rgba(117, 132, 255, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
 .industry-card.teal {
@@ -1318,6 +1381,7 @@
   border-radius: 13px;
   background: rgba(117, 132, 255, 0.12);
   border: 1px solid rgba(117, 132, 255, 0.22);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .industry-card.teal .industry-title span,
@@ -1330,6 +1394,74 @@
 .final-industry-grid .amber span {
   background: rgba(227, 173, 69, 0.1);
   border-color: rgba(227, 173, 69, 0.22);
+}
+
+/* Industry Cards Hover Effects */
+.industry-card:hover {
+  background: var(--solutions-panel-2);
+}
+
+/* Blue Tone Hover (Retail, D2C Brands, Agencies) */
+.industry-card.blue:hover {
+  border-color: rgba(117, 132, 255, 0.35);
+  border-top-color: rgba(117, 132, 255, 1);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.5), 
+    0 0 25px rgba(117, 132, 255, 0.16);
+}
+
+.industry-card.blue:hover .industry-title span {
+  background: rgba(117, 132, 255, 0.22);
+  border-color: rgba(117, 132, 255, 0.55);
+  box-shadow: 0 0 15px rgba(117, 132, 255, 0.25);
+}
+
+.industry-card.blue:hover .industry-link {
+  background: rgba(117, 132, 255, 0.1);
+  border-color: rgba(117, 132, 255, 0.4);
+  color: #ffffff;
+}
+
+/* Teal Tone Hover (Wholesale, Distributors) */
+.industry-card.teal:hover {
+  border-color: rgba(85, 216, 197, 0.35);
+  border-top-color: rgba(85, 216, 197, 1);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.5), 
+    0 0 25px rgba(85, 216, 197, 0.16);
+}
+
+.industry-card.teal:hover .industry-title span {
+  background: rgba(85, 216, 197, 0.22);
+  border-color: rgba(85, 216, 197, 0.55);
+  box-shadow: 0 0 15px rgba(85, 216, 197, 0.25);
+}
+
+.industry-card.teal:hover .industry-link {
+  background: rgba(85, 216, 197, 0.1);
+  border-color: rgba(85, 216, 197, 0.4);
+  color: #ffffff;
+}
+
+/* Amber Tone Hover (Manufacturing) */
+.industry-card.amber:hover {
+  border-color: rgba(227, 173, 69, 0.35);
+  border-top-color: rgba(227, 173, 69, 1);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.5), 
+    0 0 25px rgba(227, 173, 69, 0.16);
+}
+
+.industry-card.amber:hover .industry-title span {
+  background: rgba(227, 173, 69, 0.22);
+  border-color: rgba(227, 173, 69, 0.55);
+  box-shadow: 0 0 15px rgba(227, 173, 69, 0.25);
+}
+
+.industry-card.amber:hover .industry-link {
+  background: rgba(227, 173, 69, 0.1);
+  border-color: rgba(227, 173, 69, 0.4);
+  color: #ffffff;
 }
 
 .industry-title p {
