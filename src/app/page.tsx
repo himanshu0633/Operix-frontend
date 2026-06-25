@@ -6,7 +6,6 @@ import AiAssistant from "./landing/components/AiAssistant";
 import Modules from "./landing/components/Modules";
 import Pricing from "./landing/components/Pricing";
 import Testimonials from "./landing/components/Testimonials";
-import Resources from "./landing/components/Resources";
 import FinalCta from "./landing/components/FinalCta";
 import Footer from "./landing/components/Footer";
 
@@ -22,7 +21,6 @@ export default function Home() {
         <AiAssistant />
         <Pricing />
         <Testimonials />
-        <Resources />
         <FinalCta />
       </main>
       <Footer />
