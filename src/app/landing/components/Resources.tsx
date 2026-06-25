@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   BarChart3,
   BookOpen,
@@ -329,7 +330,7 @@ export default function Resources() {
 
           <div className="resource-card-grid">
             {browseCategories.map(({ icon: Icon, title, text, count, tone }) => (
-              <article className={`resource-card ${tone}`} key={title}>
+              <Link href="/admin/dashboard" className={`resource-card ${tone}`} key={title}>
                 <div className="resource-card-top">
                   <span className="resource-card-icon">
                     <Icon size={21} />
@@ -338,8 +339,8 @@ export default function Resources() {
                 </div>
                 <h3>{title}</h3>
                 <p>{text}</p>
-                <a href="#resources">Browse all <span>→</span></a>
-              </article>
+                <div className="resource-card-action-text">Browse all <span>→</span></div>
+              </Link>
             ))}
           </div>
         </div>
@@ -357,7 +358,7 @@ export default function Resources() {
 
           <div className="featured-resource-grid">
             {featuredResources.map(({ icon: Icon, type, readTime, title, text, date, tone }) => (
-              <article className={`featured-resource-card ${tone}`} key={title}>
+              <Link href="/admin/dashboard" className={`featured-resource-card ${tone}`} key={title}>
                 <div className="featured-resource-art">
                   <i />
                   <i />
@@ -376,10 +377,10 @@ export default function Resources() {
                   <p>{text}</p>
                   <div className="featured-card-bottom">
                     <time>{date}</time>
-                    <a href="#resources">Read More <span>→</span></a>
+                    <div className="featured-card-action-text">Read More <span>→</span></div>
                   </div>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
@@ -477,7 +478,7 @@ export default function Resources() {
 
           <div className="template-download-grid">
             {templateDownloads.map(({ icon: Icon, title, text, size, downloads, format, tone }) => (
-              <article className={`template-download-card ${tone}`} key={title}>
+              <Link href="/admin/dashboard" className={`template-download-card ${tone}`} key={title}>
                 <div className="template-card-top">
                   <span className="template-file-icon">
                     <Icon size={22} />
@@ -490,10 +491,10 @@ export default function Resources() {
                   <span>{size}</span>
                   <span>{downloads}</span>
                 </div>
-                <button type="button">
+                <div className="template-download-button">
                   <Download size={14} /> Free Download
-                </button>
-              </article>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -508,7 +509,7 @@ export default function Resources() {
 
           <div className="support-card-grid">
             {supportCards.map(({ icon: Icon, title, text, action, tone, stats }) => (
-              <article className={`support-card ${tone}`} key={title}>
+              <Link href="/admin/dashboard" className={`support-card ${tone}`} key={title}>
                 <span className="support-main-icon">
                   <Icon size={25} />
                 </span>
@@ -525,10 +526,10 @@ export default function Resources() {
                   ))}
                 </div>
 
-                <a href="#resources">
+                <div className="support-card-action-text">
                   {action} <span>→</span>
-                </a>
-              </article>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

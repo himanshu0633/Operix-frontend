@@ -452,13 +452,15 @@ export default function SolutionsPage() {
                 <ScrollReveal key={study.name} animation="slide-up" duration={800} delay={idx * 150}>
                   <article className={`case-card ${study.tone}`}>
                     <div className="case-chart">
-                      <span className="case-avatar">{study.initials}</span>
+                      <div className="case-info">
+                        <span className="case-avatar">{study.initials}</span>
+                        <small>{study.name} Dashboard</small>
+                      </div>
                       <div className="case-bars">
                         {Array.from({ length: 12 }).map((_, index) => (
-                          <i key={index} style={{ height: `${24 + ((index * 7) % 38)}px` }} />
+                          <i key={index} style={{ height: `${16 + ((index * 5) % 22)}px` }} />
                         ))}
                       </div>
-                      <small>{study.name} Dashboard</small>
                     </div>
                     <div className="case-body">
                       <h3>{study.name}</h3>

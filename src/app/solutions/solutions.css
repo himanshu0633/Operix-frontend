@@ -390,6 +390,15 @@
   font-weight: 800;
 }
 
+.case-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  position: relative;
+}
+
 .case-card.teal .case-avatar,
 .case-card.teal .case-metrics strong,
 .case-card.teal .case-meta span {
@@ -406,12 +415,12 @@
   position: absolute;
   left: 20px;
   right: 20px;
-  bottom: 18px;
+  bottom: 14px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 8px;
   align-items: end;
-  opacity: 0.44;
+  opacity: 0.25;
 }
 
 .case-bars i {
@@ -428,13 +437,13 @@
   background: var(--solutions-amber);
 }
 
-.case-chart small {
-  position: absolute;
-  bottom: 56px;
-  color: #5e6877;
+.case-info small {
+  color: #94a3b8;
   font-size: 10px;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .case-body {

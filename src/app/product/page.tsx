@@ -380,10 +380,25 @@ export default function ProductPage() {
               className={`workflow-detail tone-${activeStep.tone} workflow-detail-animate`}
             >
               <span className="detail-icon"><ActiveIcon size={34} /></span>
-              <div>
-                <small>Step {activeIndex + 1}</small>
-                <h3>{activeStep.label}</h3>
-                <p>{activeStep.description}</p>
+              <div style={{ display: "grid" }}>
+                {workflowSteps.map((step, idx) => {
+                  const isActive = idx === activeIndex;
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        gridArea: "1 / 1 / 2 / 2",
+                        opacity: isActive ? 1 : 0,
+                        visibility: isActive ? "visible" : "hidden",
+                        pointerEvents: isActive ? "auto" : "none",
+                      }}
+                    >
+                      <small>Step {idx + 1}</small>
+                      <h3>{step.label}</h3>
+                      <p>{step.description}</p>
+                    </div>
+                  );
+                })}
               </div>
               <strong>{activeStep.number}</strong>
             </div>

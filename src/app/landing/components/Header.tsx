@@ -44,8 +44,8 @@ export default function Header() {
             Pricing
           </Link>
           <Link 
-            href="/#resources" 
-            className={`nav-link ${pathname === "/#resources" || pathname?.endsWith("#resources") ? "active" : ""}`}
+            href="/resources" 
+            className={`nav-link ${pathname === "/resources" || pathname?.startsWith("/resources") ? "active" : ""}`}
           >
             Resources
           </Link>
