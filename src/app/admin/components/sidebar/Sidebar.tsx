@@ -36,7 +36,7 @@ const sidebarSections = [
     title: "COMMERCE",
     items: [
       { label: "Website", icon: Globe2, href: "/admin/dashboard#website" },
-      { label: "Marketing", icon: Send, href: "#" },
+      { label: "Marketing", icon: Send, href: "/admin/marketing" },
       { label: "Campaigns", icon: Radio, href: "#" },
     ],
   },
@@ -59,7 +59,7 @@ const sidebarSections = [
 ];
 
 type SidebarProps = {
-  activePage: "dashboard" | "products" | "suppliers" | "inventory" | "orders" | "customers" | "website";
+  activePage: "dashboard" | "products" | "suppliers" | "inventory" | "orders" | "customers" | "website" | "marketing";
 };
 
 export function Sidebar({ activePage }: SidebarProps) {
@@ -87,7 +87,8 @@ export function Sidebar({ activePage }: SidebarProps) {
                 (activePage === "inventory" && item.label === "Inventory") ||
                 (activePage === "orders" && item.label === "Orders") ||
                 (activePage === "customers" && item.label === "Customers") ||
-                (activePage === "website" && item.label === "Website");
+                (activePage === "website" && item.label === "Website") ||
+                (activePage === "marketing" && item.label === "Marketing");
 
               return (
                 <a className={isActive ? "active" : ""} href={item.href} key={item.label}>
