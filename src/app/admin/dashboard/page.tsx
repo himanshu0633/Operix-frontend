@@ -447,7 +447,7 @@ export default function Home() {
 
               <div className="insightGrid">
                 {aiCards.map((card) => (
-                  <div className={`insightCard ${card.tone}`} key={card.title}>
+                  <div className={`dbInsightCard ${card.tone}`} key={card.title}>
                     <card.icon size={17} />
                     <div>
                       <span>{card.category}</span>

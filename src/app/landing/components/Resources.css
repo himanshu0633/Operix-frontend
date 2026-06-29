@@ -764,10 +764,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 0 11px;
+  padding: 6px 11px;
   border-radius: 7px;
   color: #8f99a9;
   font-size: 12px;
+  line-height: 1.35;
+}
+
+.docs-nav-links a span {
+  min-width: 0;
+  flex: 1;
+  text-align: left;
 }
 
 .docs-nav-links a.active {

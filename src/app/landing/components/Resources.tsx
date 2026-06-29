@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   BarChart3,
@@ -155,28 +158,356 @@ const docsSidebar = [
   {
     icon: BookOpen,
     title: "Getting Started",
-    open: true,
     links: [
-      "Creating your Operix account",
-      "Setting up your workspace",
-      "Inviting your team members",
-      "Connecting your first products",
-      "Overview of all modules",
+      { label: "Creating your Operix account", hot: true },
+      { label: "Setting up your workspace", hot: true },
+      { label: "Inviting your team members", hot: true },
+      { label: "Connecting your first products", hot: true },
+      { label: "Overview of all modules", hot: false },
     ],
   },
-  { icon: Warehouse, title: "Inventory Setup" },
-  { icon: MonitorPlay, title: "Website Builder" },
-  { icon: Megaphone, title: "Marketing" },
-  { icon: Calculator, title: "Accounting" },
+  {
+    icon: Warehouse,
+    title: "Inventory Setup",
+    links: [
+      { label: "Adding stock locations", hot: true },
+      { label: "Configuring reorder points", hot: true },
+      { label: "Importing existing inventory", hot: false },
+      { label: "Barcode scanning setup", hot: false },
+    ],
+  },
+  {
+    icon: MonitorPlay,
+    title: "Website Builder",
+    links: [
+      { label: "Generating your first store with AI", hot: true },
+      { label: "Customizing layout and design", hot: true },
+      { label: "Connecting a custom domain", hot: false },
+      { label: "Publishing your store", hot: false },
+      { label: "Setting up product pages", hot: true },
+      { label: "SEO settings and metadata", hot: false },
+    ],
+  },
+  {
+    icon: Megaphone,
+    title: "Marketing",
+    links: [
+      { label: "Creating your first campaign", hot: true },
+      { label: "AI content generation overview", hot: true },
+      { label: "Setting up email sequences", hot: false },
+      { label: "Tracking campaign performance", hot: false },
+    ],
+  },
+  {
+    icon: Calculator,
+    title: "Accounting",
+    links: [
+      { label: "Connecting your bank account", hot: true },
+      { label: "Setting up tax rates", hot: false },
+      { label: "Understanding the P&L report", hot: true },
+      { label: "Reconciling transactions", hot: false },
+      { label: "Exporting reports for your accountant", hot: false },
+    ],
+  },
 ];
 
-const docsOutline = [
-  "Overview & prerequisites",
-  "Step-by-step walkthrough",
-  "Configuration options",
-  "Common troubleshooting",
-  "Related resources",
-];
+type ArticleDetail = {
+  title: string;
+  category: string;
+  readTime: string;
+  outline: string[];
+};
+
+const articlesData: Record<string, ArticleDetail> = {
+  "Creating your Operix account": {
+    title: "Creating your Operix account",
+    category: "Getting Started",
+    readTime: "3 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Setting up your workspace": {
+    title: "Setting up your workspace",
+    category: "Getting Started",
+    readTime: "5 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Inviting your team members": {
+    title: "Inviting your team members",
+    category: "Getting Started",
+    readTime: "2 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Connecting your first products": {
+    title: "Connecting your first products",
+    category: "Getting Started",
+    readTime: "6 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Overview of all modules": {
+    title: "Overview of all modules",
+    category: "Getting Started",
+    readTime: "8 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Adding stock locations": {
+    title: "Adding stock locations",
+    category: "Inventory Setup",
+    readTime: "4 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Configuring reorder points": {
+    title: "Configuring reorder points",
+    category: "Inventory Setup",
+    readTime: "5 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Importing existing inventory": {
+    title: "Importing existing inventory",
+    category: "Inventory Setup",
+    readTime: "7 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Barcode scanning setup": {
+    title: "Barcode scanning setup",
+    category: "Inventory Setup",
+    readTime: "6 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Generating your first store with AI": {
+    title: "Generating your first store with AI",
+    category: "Website Builder",
+    readTime: "5 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Customizing layout and design": {
+    title: "Customizing layout and design",
+    category: "Website Builder",
+    readTime: "10 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Connecting a custom domain": {
+    title: "Connecting a custom domain",
+    category: "Website Builder",
+    readTime: "4 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Publishing your store": {
+    title: "Publishing your store",
+    category: "Website Builder",
+    readTime: "3 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Setting up product pages": {
+    title: "Setting up product pages",
+    category: "Website Builder",
+    readTime: "6 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "SEO settings and metadata": {
+    title: "SEO settings and metadata",
+    category: "Website Builder",
+    readTime: "7 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Creating your first campaign": {
+    title: "Creating your first campaign",
+    category: "Marketing",
+    readTime: "6 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "AI content generation overview": {
+    title: "AI content generation overview",
+    category: "Marketing",
+    readTime: "5 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Setting up email sequences": {
+    title: "Setting up email sequences",
+    category: "Marketing",
+    readTime: "8 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Tracking campaign performance": {
+    title: "Tracking campaign performance",
+    category: "Marketing",
+    readTime: "4 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Connecting your bank account": {
+    title: "Connecting your bank account",
+    category: "Accounting",
+    readTime: "4 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Setting up tax rates": {
+    title: "Setting up tax rates",
+    category: "Accounting",
+    readTime: "5 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Understanding the P&L report": {
+    title: "Understanding the P&L report",
+    category: "Accounting",
+    readTime: "6 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Reconciling transactions": {
+    title: "Reconciling transactions",
+    category: "Accounting",
+    readTime: "7 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+  "Exporting reports for your accountant": {
+    title: "Exporting reports for your accountant",
+    category: "Accounting",
+    readTime: "3 min",
+    outline: [
+      "Overview & prerequisites",
+      "Step-by-step walkthrough",
+      "Configuration options",
+      "Common troubleshooting",
+      "Related resources",
+    ],
+  },
+};
 
 const templateDownloads = [
   {
@@ -263,6 +594,25 @@ const supportCards = [
 ];
 
 export default function Resources() {
+  const [selectedLink, setSelectedLink] = useState<string>("Creating your Operix account");
+  const [expandedMenus, setExpandedMenus] = useState<string[]>(["Getting Started"]);
+
+  const toggleMenu = (title: string) => {
+    setExpandedMenus((prev) => {
+      if (prev.includes(title)) {
+        return prev.filter((item) => item !== title);
+      } else {
+        const next = [...prev, title];
+        if (next.length > 2) {
+          return next.slice(1); // Keep at most two open
+        }
+        return next;
+      }
+    });
+  };
+
+  const currentArticle = articlesData[selectedLink] || articlesData["Creating your Operix account"];
+
   return (
     <>
       <section id="resources" className="resources-section">
@@ -401,26 +751,42 @@ export default function Resources() {
               </label>
 
               <nav aria-label="Documentation sections">
-                {docsSidebar.map(({ icon: Icon, title, open, links }) => (
-                  <div className={`docs-nav-group ${open ? "open" : ""}`} key={title}>
-                    <button type="button">
-                      <span>
-                        <Icon size={16} /> {title}
-                      </span>
-                      {open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                    </button>
-                    {open && links && (
-                      <div className="docs-nav-links">
-                        {links.map((link, index) => (
-                          <a className={index === 0 ? "active" : ""} href="#resources" key={link}>
-                            {link}
-                            {index < 4 && <small>Hot</small>}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                {docsSidebar.map(({ icon: Icon, title, links }) => {
+                  const isMenuOpen = expandedMenus.includes(title);
+                  return (
+                    <div className={`docs-nav-group ${isMenuOpen ? "open" : ""}`} key={title}>
+                      <button type="button" onClick={() => toggleMenu(title)}>
+                        <span>
+                          <Icon size={16} /> {title}
+                        </span>
+                        {isMenuOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                      </button>
+                      {isMenuOpen && links && (
+                        <div className="docs-nav-links">
+                          {links.map((link) => {
+                            const label = typeof link === "string" ? link : link.label;
+                            const isHot = typeof link === "string" ? false : link.hot;
+                            const isActive = selectedLink === label;
+                            return (
+                              <a
+                                className={isActive ? "active" : ""}
+                                href="#resources"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setSelectedLink(label);
+                                }}
+                                key={label}
+                              >
+                                <span>{label}</span>
+                                {isHot && <small>Hot</small>}
+                              </a>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </nav>
             </aside>
 
@@ -428,20 +794,20 @@ export default function Resources() {
               <div className="docs-breadcrumb">
                 <span>Docs</span>
                 <ChevronRight size={13} />
-                <span>Getting Started</span>
+                <span>{currentArticle.category}</span>
                 <ChevronRight size={13} />
-                <span>Creating your Operix account</span>
+                <span>{currentArticle.title}</span>
               </div>
 
               <span className="docs-read-time">
-                <Clock3 size={13} /> 3 min
+                <Clock3 size={13} /> {currentArticle.readTime}
               </span>
-              <h3>Creating your Operix account</h3>
+              <h3>{currentArticle.title}</h3>
 
               <div className="docs-outline">
                 <strong>In This Article</strong>
                 <ol>
-                  {docsOutline.map((item) => (
+                  {currentArticle.outline.map((item) => (
                     <li key={item}>
                       <a href="#resources">{item}</a>
                     </li>
