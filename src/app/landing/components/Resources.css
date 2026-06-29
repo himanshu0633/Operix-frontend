@@ -154,20 +154,23 @@
 }
 
 .resource-float.case-studies {
-  left: 112px;
-  bottom: 86px;
+  left: calc(50% - 170px);
+  transform: translateX(-50%);
+  bottom: 32px;
   color: #55d8c5;
 }
 
 .resource-float.reports {
-  left: 49%;
-  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 32px;
   color: #e3ad45;
 }
 
 .resource-float.webinars {
-  right: 24px;
-  bottom: 114px;
+  left: calc(50% + 170px);
+  transform: translateX(-50%);
+  bottom: 32px;
   color: #8b96ff;
 }
 

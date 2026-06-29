@@ -192,7 +192,9 @@
 
 @media (max-width: 760px) {
   .appHeader {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 14px;

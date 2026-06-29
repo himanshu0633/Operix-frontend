@@ -11,6 +11,10 @@ import "./admin/inventory/inventory.css";
 import "./admin/orders/orders.css";
 import "./admin/customers/customers.css";
 import "./admin/marketing/marketing.css";
+import "./admin/campaigns/campaigns.css";
+import "./admin/accounting/accounting.css";
+import "./admin/hrm/hrm.css";
+import "./admin/analytics/analytics.css";
 import "./landing/landing.css";
 
 export const metadata: Metadata = {
