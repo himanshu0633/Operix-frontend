@@ -7,9 +7,10 @@
 }
 
 .hero-content {
-
   max-width: 540px;
   width: 100%;
+  position: relative;
+  z-index: 5;
 }
 
 .badge.hero-badge {
@@ -90,10 +91,9 @@
 .hero-checklist {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 12px 16px;
   margin-top: 30px;
-  white-space: nowrap;
 }
 
 .check-item {
@@ -125,6 +125,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  transform: translateX(-35px);
+  transition: transform 0.3s ease;
 }
 
 /* Main Dashboard Window Mock */
@@ -953,35 +955,40 @@
   position: absolute;
   padding: 10px 12px;
   width: 130px;
-  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.6), 
-              0 8px 12px -5px rgba(0, 0, 0, 0.4),
-              0 0 15px rgba(99, 102, 241, 0.12);
-  z-index: 10;
+  background: rgba(9, 11, 22, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.7), 
+              0 8px 12px -5px rgba(0, 0, 0, 0.5),
+              0 0 20px rgba(99, 102, 241, 0.15);
+  z-index: 1;
   animation: float 6s ease-in-out infinite;
   border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 .floating-card.card-orders {
   top: 12%;
-  left: -110px;
+  left: -90px;
   animation-delay: 0s;
 }
 
 .floating-card.card-revenue {
   top: 8%;
-  right: -110px;
+  right: -20px;
   animation-delay: 1.5s;
 }
 
 .floating-card.card-products {
   bottom: 25%;
-  left: -110px;
+  left: -90px;
   animation-delay: 3s;
 }
 
 .floating-card.card-inventory {
   bottom: 20%;
-  right: -110px;
+  right: -20px;
   animation-delay: 4.5s;
 }
 
@@ -1044,6 +1051,23 @@
   100% { transform: translateY(0px); }
 }
 
+@media (max-width: 1400px) {
+  .floating-card.card-orders { left: -70px; }
+  .floating-card.card-revenue { right: -15px; }
+  .floating-card.card-products { left: -70px; }
+  .floating-card.card-inventory { right: -15px; }
+}
+
+@media (max-width: 1200px) {
+  .hero-content h1 {
+    font-size: 46px;
+  }
+  .floating-card.card-orders { left: -30px; }
+  .floating-card.card-revenue { right: -10px; }
+  .floating-card.card-products { left: -30px; }
+  .floating-card.card-inventory { right: -10px; }
+}
+
 @media (max-width: 991px) {
   .hero-checklist {
     flex-wrap: wrap;
@@ -1062,9 +1086,13 @@
   .hero-content {
     margin: 0 auto;
   }
+
+  .hero-visual {
+    transform: none;
+  }
   
   .hero-content h1 {
-    font-size: 44px;
+    font-size: 40px;
   }
   
   .hero-ctas {
@@ -1074,22 +1102,70 @@
   .hero-checklist {
     justify-content: center;
   }
+  
+  .floating-card.card-orders { left: -15px; }
+  .floating-card.card-revenue { right: -15px; }
+  .floating-card.card-products { left: -15px; }
+  .floating-card.card-inventory { right: -15px; }
 }
 
 @media (max-width: 768px) {
   .hero-content h1 {
-    font-size: 36px;
+    font-size: 32px;
   }
   
   .hero-description {
-    font-size: 16px;
+    font-size: 15px;
   }
   
   .floating-card {
-    width: 140px;
-    padding: 10px;
+    width: 110px;
+    padding: 8px 10px;
   }
   
-  .floating-card.card-orders { left: -20px; }
-  .floating-card.card-revenue { right: -20px; }
+  .floating-card .float-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+  }
+  
+  .floating-card .float-title {
+    font-size: 8px;
+  }
+  
+  .floating-card .float-value {
+    font-size: 13px;
+  }
+  
+  .floating-card.card-orders { left: -10px; }
+  .floating-card.card-revenue { right: -10px; }
+  .floating-card.card-products { left: -10px; }
+  .floating-card.card-inventory { right: -10px; }
+}
+
+@media (max-width: 580px) {
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  
+  .hero-ctas .btn-large {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 28px;
+  }
+  .floating-card {
+    width: 100px;
+    padding: 6px 8px;
+  }
+  .floating-card.card-orders { left: 0px; top: 15%; }
+  .floating-card.card-revenue { right: 0px; top: 10%; }
+  .floating-card.card-products { left: 0px; bottom: 30%; }
+  .floating-card.card-inventory { right: 0px; bottom: 25%; }
 }

@@ -125,4 +125,8 @@
   .lp-nav {
     display: none;
   }
+  .header-actions .btn-link,
+  .header-actions .btn-outline-header {
+    display: none;
+  }
 }
