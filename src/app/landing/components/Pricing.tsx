@@ -1,10 +1,83 @@
-import Link from "next/link";
-import "./Pricing.css";
-import ScrollReveal from "./ScrollReveal";
+"use client";
 
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import "./Pricing.css";
+import "../../pricing/pricing.css";
+import ScrollReveal from "./ScrollReveal";
+import { Check, Zap, Phone, ArrowRight } from "lucide-react";
+
+const plans = [
+  {
+    name: "Starter",
+    description: "For new and small businesses getting started.",
+    prices: {
+      monthly: { price: "$49", suffix: "/mo", billing: "Billed monthly" },
+      annual: { price: "$39", suffix: "/mo", billing: "Billed annually ($468/yr)" },
+    },
+    limits: ["Up to 3 members", "500 products", "1,000 orders/mo", "5 GB storage"],
+    features: [
+      "Product & inventory management",
+      "Basic order processing",
+      "1 published website",
+      "Basic email marketing",
+      "Customer management (2,500)",
+      "Standard reporting",
+      "Email support",
+    ],
+    cta: "Start Free Trial",
+    featured: false,
+  },
+  {
+    name: "Growth",
+    description: "Everything you need to scale operations and revenue.",
+    prices: {
+      monthly: { price: "$149", suffix: "/mo", billing: "Billed monthly" },
+      annual: { price: "$119", suffix: "/mo", billing: "Billed annually ($1428/yr)" },
+    },
+    limits: ["Up to 15 members", "Unlimited products", "Unlimited orders", "50 GB storage"],
+    features: [
+      "Everything in Starter",
+      "Advanced inventory & suppliers",
+      "Up to 3 websites with AI builder",
+      "AI marketing studio & campaigns",
+      "Full accounting module",
+      "HRM & team management",
+      "Advanced analytics & custom reports",
+      "API access (read-only)",
+      "Priority support & onboarding",
+    ],
+    cta: "Start Free Trial",
+    featured: true,
+  },
+  {
+    name: "Enterprise",
+    description: "Tailored for complex, multi-entity organizations.",
+    prices: {
+      monthly: { price: "Custom", suffix: "", billing: "Contact us for a tailored quote" },
+      annual: { price: "Custom", suffix: "", billing: "Contact us for a tailored quote" },
+    },
+    limits: ["Unlimited members", "Unlimited products", "Unlimited orders", "Custom storage"],
+    features: [
+      "Everything in Growth",
+      "Unlimited team members",
+      "Unlimited websites",
+      "Custom integrations & full API",
+      "Dedicated account manager",
+      "99.99% uptime SLA",
+      "Multi-entity & multi-currency",
+      "White-label options",
+      "Custom onboarding & training",
+    ],
+    cta: "Contact Sales",
+    enterprise: true,
+  },
+];
 
 export default function Pricing() {
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
+  const [activePlan, setActivePlan] = useState<string>("Growth");
+
   return (
     <section id="pricing" className="section-padding">
       <div className="lp-container">
@@ -19,144 +92,72 @@ export default function Pricing() {
           </div>
         </ScrollReveal>
 
-        <div className="pricing-grid">
-          {/* Starter Plan */}
-          <ScrollReveal animation="slide-up" duration={700} delay={0} className="pricing-card glass-panel">
-            <h3 className="pricing-title">Starter</h3>
-            <p className="pricing-sub">Perfect for new businesses</p>
-            <div className="pricing-price">
-              $49<span>/month</span>
-            </div>
-            
-            <ul className="pricing-checklist">
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Up to 500 products</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Basic inventory management</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Website builder (1 site)</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Order management</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Email support</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>2 team members</span>
-              </li>
-            </ul>
+        <ScrollReveal animation="slide-up" duration={800} delay={100}>
+          <div className="pp-toggle" aria-label="Billing period">
+            <button 
+              className={billingPeriod === "monthly" ? "active" : ""}
+              onClick={() => setBillingPeriod("monthly")}
+            >
+              Monthly
+            </button>
+            <button 
+              className={billingPeriod === "annual" ? "active" : ""}
+              onClick={() => setBillingPeriod("annual")}
+            >
+              Annual <span>Save 20%</span>
+            </button>
+          </div>
+        </ScrollReveal>
 
-            <Link href="/admin/dashboard" className="btn-pricing">
-              <span>Start for Free &rarr;</span>
-            </Link>
-          </ScrollReveal>
-
-          {/* Growth Plan (Featured) */}
-          <ScrollReveal animation="slide-up" duration={700} delay={100} className="pricing-card featured glass-panel">
-            <span className="pricing-card-badge">Most Popular</span>
-            <h3 className="pricing-title">Growth</h3>
-            <p className="pricing-sub">For scaling operations</p>
-            <div className="pricing-price">
-              $149<span>/month</span>
-            </div>
-            
-            <ul className="pricing-checklist">
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Unlimited products</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Advanced inventory & suppliers</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Website builder (3 sites)</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Marketing Studio & Campaigns</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Accounting & reporting</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>10 team members</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Priority support</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Custom domain</span>
-              </li>
-            </ul>
-
-            <Link href="/admin/dashboard" className="btn-pricing featured-btn">
-              <span>Start Free Trial &rarr;</span>
-            </Link>
-          </ScrollReveal>
-
-          {/* Enterprise Plan */}
-          <ScrollReveal animation="slide-up" duration={700} delay={200} className="pricing-card glass-panel">
-            <h3 className="pricing-title">Enterprise</h3>
-            <p className="pricing-sub">For complex organizations</p>
-            <div className="pricing-price">
-              Custom
-            </div>
-            
-            <ul className="pricing-checklist">
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Everything in Growth</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Unlimited team members</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Custom integrations & API</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Dedicated account manager</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>SLA & uptime guarantee</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Multi-entity & multi-currency</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>Advanced analytics & BI</span>
-              </li>
-              <li className="pricing-check-item">
-                <span className="pricing-check-icon"><Check size={14} /></span>
-                <span>White-label options</span>
-              </li>
-            </ul>
-
-            <Link href="/admin/dashboard" className="btn-pricing">
-              <span>Contact Sales &rarr;</span>
-            </Link>
-          </ScrollReveal>
+        <div className="pp-plan-grid">
+          {plans.map((plan, index) => {
+            const planPrice = plan.prices[billingPeriod];
+            const isActive = plan.name === activePlan;
+            return (
+              <ScrollReveal 
+                animation="slide-up" 
+                duration={700} 
+                delay={index * 100}
+                key={plan.name}
+                className="pp-plan-card-reveal-wrapper"
+              >
+                <article 
+                  className={`pp-plan-card ${isActive ? "featured" : ""}`} 
+                  onClick={() => setActivePlan(plan.name)}
+                >
+                  <div className="pp-plan-top">
+                    <h2>{plan.name}</h2>
+                    {plan.featured && <span className="pp-popular"><Zap size={13} /> Most Popular</span>}
+                  </div>
+                  <p>{plan.description}</p>
+                  <div className="pp-price">
+                    {planPrice.price.startsWith("$") && <small>$</small>}
+                    <strong>{planPrice.price.replace("$", "")}</strong>
+                    {planPrice.suffix && <span>{planPrice.suffix}</span>}
+                  </div>
+                  <small className="pp-billing">{planPrice.billing}</small>
+                  <div className="pp-limits">
+                    {plan.limits.map((limit) => <span key={limit}>{limit}</span>)}
+                  </div>
+                  <ul className="pp-feature-list">
+                    {plan.features.map((feature) => (
+                      <li key={feature}><Check size={14} /> {feature}</li>
+                    ))}
+                  </ul>
+                  <Link href={plan.enterprise ? "#contact-sales" : "/admin/dashboard"} className="pp-plan-cta">
+                    {plan.enterprise && <Phone size={16} />}
+                    {plan.cta}
+                    {!plan.enterprise && <ArrowRight size={17} />}
+                  </Link>
+                </article>
+              </ScrollReveal>
+            );
+          })}
         </div>
+        
+        <ScrollReveal animation="slide-up" duration={800} delay={300}>
+          <p className="pp-plan-note" style={{ marginTop: "40px" }}>All plans include a 14-day free trial. No credit card required. Cancel anytime.</p>
+        </ScrollReveal>
       </div>
     </section>
   );

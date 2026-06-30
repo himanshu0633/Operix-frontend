@@ -149,3 +149,16 @@
     gap: 24px;
   }
 }
+
+/* Homepage Pricing Custom Overrides */
+#pricing .pp-toggle {
+  margin: 32px auto 48px auto;
+}
+
+.pp-plan-card-reveal-wrapper {
+  height: 100%;
+}
+
+.pp-plan-card-reveal-wrapper .pp-plan-card {
+  height: 100%;
+}
