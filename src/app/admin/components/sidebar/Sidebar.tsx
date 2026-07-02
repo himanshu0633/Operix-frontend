@@ -46,7 +46,7 @@ const sidebarSections = [
       { label: "Accounting", icon: BookOpen, href: "/admin/accounting" },
       { label: "HRM", icon: UserRoundCheck, href: "/admin/hrm" },
       { label: "Analytics", icon: BarChart3, href: "/admin/analytics" },
-      { label: "Reports", icon: FileText, href: "#" },
+      { label: "Reports", icon: FileText, href: "/admin/reports" },
     ],
   },
   {
@@ -59,7 +59,7 @@ const sidebarSections = [
 ];
 
 type SidebarProps = {
-  activePage: "dashboard" | "products" | "suppliers" | "inventory" | "orders" | "customers" | "website" | "marketing" | "campaigns" | "accounting" | "hrm" | "analytics";
+  activePage: "dashboard" | "products" | "suppliers" | "inventory" | "orders" | "customers" | "website" | "marketing" | "campaigns" | "accounting" | "hrm" | "analytics" | "reports";
 };
 
 export function Sidebar({ activePage }: SidebarProps) {
@@ -92,7 +92,8 @@ export function Sidebar({ activePage }: SidebarProps) {
                 (activePage === "campaigns" && item.label === "Campaigns") ||
                 (activePage === "accounting" && item.label === "Accounting") ||
                 (activePage === "hrm" && item.label === "HRM") ||
-                (activePage === "analytics" && item.label === "Analytics");
+                (activePage === "analytics" && item.label === "Analytics") ||
+                (activePage === "reports" && item.label === "Reports");
 
               return (
                 <a className={isActive ? "active" : ""} href={item.href} key={item.label}>
